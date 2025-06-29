@@ -1,0 +1,97 @@
+html { scroll-behavior: smooth; }
+body {
+    padding-top: 4rem;        /* space for fixed navbar */
+    margin: 0;
+    background: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+}
+
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(16,44,63,0.92);  /* translucent warm navy */
+    backdrop-filter: blur(8px);
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.logo-icon {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--secondary);
+    border: 2px solid var(--secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-right: 20px;       /* space between logo and nav */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links li a i {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.nav-links li a:hover i,
+.nav-links li a.active i {
+    color: var(--text-light);
+}
+
+.link-text {
+    position: relative;
+}
+
+.link-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.3s ease;
+}
+
+.nav-links li a:hover .link-text::after,
+.nav-links li a.active .link-text::after {
+    transform: scaleX(1);
+}
+
+.resume-btn {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--primary);
+    background: var(--primary);
+    color: var(--bg-dark);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.resume-btn:hover {
+    background: var(--secondary);
+    color: var(--bg-dark);
+    transform: translateY(-2px);
+}

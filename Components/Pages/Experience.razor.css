@@ -1,0 +1,42 @@
+.section-bg { background: rgba(255,255,255,0.05); }
+.section-title { color: var(--primary); font-weight:600; }
+
+.netflix-card {
+    width: 200px;
+    height: 300px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #222;
+    transition: transform .3s;
+}
+.netflix-card:hover { transform: scale(1.05); }
+.netflix-card .card-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.netflix-card .card-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 10px;
+    transform: translateY(100%);
+    transition: transform .3s;
+}
+.netflix-card:hover .card-overlay { transform: translateY(0); }
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #000;
+    cursor: pointer;
+}

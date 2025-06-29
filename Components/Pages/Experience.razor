@@ -1,0 +1,134 @@
+@using System.Collections.Generic
+
+<section id="experience" class="py-5 section-bg" aria-label="experience">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">Experience</h2>
+    <div class="d-flex flex-wrap justify-content-center gap-4">
+      @foreach (var exp in Experiences)
+      {
+        <div class="netflix-card" @onclick="() => ShowDetail(exp)" style="cursor: pointer;">
+          <div class="card-img" style="background-image: url('@exp.ImageUrl');"></div>
+          <div class="card-overlay">
+            <h5>@exp.Role</h5>
+            <p class="mb-0 text-muted">@exp.Company</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+@if (SelectedExp is not null)
+{
+  <div class="modal-backdrop" @onclick="() => CloseDetail()"></div>
+  <div class="detail-modal" @onclick:stopPropagation>
+    <button class="close-btn" @onclick="() => CloseDetail()">×</button>
+    <div class="experience-header">
+      <h3>@SelectedExp.Role</h3>
+      <p class="text-muted">@SelectedExp.Company • @SelectedExp.Location</p>
+    </div>
+    
+    <div class="blurb-content mt-4">
+      <div class="blurb-container">
+        <p class="blurb-header mb-3">
+          @SelectedExp.Dates
+        </p>
+        <ul class="blurb-list mb-5">
+          @foreach (var bullet in SelectedExp.Bullets)
+          {
+            <li class="blurb-item blurb-header">@bullet</li>
+          }
+        </ul>
+        <h6 class="blurb-header">
+          Technologies
+        </h6>
+        <div class="d-flex flex-wrap mt-2">
+          @foreach (var tech in SelectedExp.Technologies)
+          {
+            <span class="badge tech-badge me-2 mb-2">@tech</span>
+          }
+        </div>
+      </div>
+      
+    </div>
+    <div class="mt-5">
+      @foreach (var link in SelectedExp.Links)
+      {
+        <a href="@link.Url" target="_blank" class="btn btn-outline-dark btn-sm me-2">@link.Text</a>
+      }
+    </div>
+  </div>
+}
+
+@code {
+    private List<ExpModel> Experiences = new()
+    {
+        new ExpModel
+        {
+            Role = "Full-Stack Engineer",
+            Company = "Range Automation Systems",
+            Dates = "Jan 2024 – Present",
+            Location = "Scottsdale, AZ",
+            ImageUrl = "images/ras_team.jpg",
+            Bullets = new List<string>
+            {
+              "Led end-to-end development of a Blazor web app capable of remotely tracking driving range statistics globally, integrating REST API for remote start/stop control, member integration, and error tracking.",
+              "Engineered a multi-modal seq-to-seq neural network in Python using TensorFlow/Keras to analyze CSV/PDF error logs, identify error trends, and generate actionable recommendations for clients.",
+              "Designed and implemented a Python app featuring OCR and TensorFlow to automate real-time golf-ball sorting by color and brand, achieving a 500% increase in throughput.",
+              "Designed and managed end-to-end AWS API Gateway REST endpoints, Lambda integrations, backend services, and web-app data flows for scalable, client-specific cloud processing.",
+              "Engineered scalable backend SaaS in C#, Java, and VB.NET to integrate external APIs and manage machine operations across all venues.",
+              "Architected and deployed AWS API Gateway WebSocket APIs with Lambda and DynamoDB-based state management, secured via Cognito IAM authorizers and monitored by CloudWatch, enabling event-driven actions between Blazor front-end and backend services."
+            },
+            Technologies = new()
+            {
+              "Blazor",
+              "Python",
+              "TensorFlow",
+              "OCR",
+              "REST API",
+              "AWS API Gateway",
+              "AWS Lambda",
+              "DynamoDB",
+              "Amazon Cognito",
+              "OAuth",
+              "CloudWatch",
+              "WebSockets",
+              "C#",
+              "VB.NET",
+              "JavaScript",
+              "ASP.NET"
+            },Links = new() { new Link { Text = "GitHub", Url = "https://github.com/yourrepo" } }
+        },
+        // add other experiences here
+    };
+
+    private ExpModel SelectedExp;
+
+    private void ShowDetail(ExpModel exp)
+    {
+        SelectedExp = exp;
+    }
+
+    private void CloseDetail()
+    {
+        SelectedExp = null;
+    }
+
+    private class ExpModel
+    {
+        public string Role { get; set; }
+        public string Company { get; set; }
+        public string Dates { get; set; }
+        public string Location { get; set; }
+        public string ImageUrl { get; set; }
+        public List<string> Bullets { get; set; }
+        public List<string> Technologies { get; set; }
+        public List<Link> Links { get; set; }
+    }
+
+    private class Link
+    {
+        public string Text { get; set; }
+        public string Url { get; set; }
+    }
+}

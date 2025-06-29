@@ -1,0 +1,45 @@
+@inject NavigationManager Nav
+
+<nav class="topbar">
+    <div class="container-fluid d-flex align-items-center">
+        <!-- Logo -->
+        <a href="#" class="logo-icon">Z</a>
+
+        <!-- Nav links immediately after logo -->
+        <ul class="nav-links mb-0 d-flex">
+            <li>
+                <a class="@(Nav.Uri.Contains("#about") ? "active" : "")" href="#about">
+                    <span><i class="fas fa-user"></i></span>
+                    <span class="link-text ms-2">About</span>
+                </a>
+            </li>
+            <li>
+                <a class="@(Nav.Uri.Contains("#experience") ? "active" : "")" href="#experience">
+                    <span><i class="fa-regular fa-briefcase"></i></span>
+                    <span class="link-text ms-2">Experience</span>
+                </a>
+            </li>
+            <li>
+                <a class="@(Nav.Uri.Contains("#work") ? "active" : "")" href="#work">
+                    <i class="fa-regular fa-code"></i>
+                    <span class="link-text ms-2">Work</span>
+                </a>
+            </li>
+            <li>
+                <a class="@(Nav.Uri.Contains("#contact") ? "active" : "")" href="#contact">
+                    <span><i class="fa-regular fa-envelope"></i></span>
+                    <span class="link-text ms-2">Contact</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Resume button aligned to right -->
+        <a href="resume.pdf" target="_blank" class="resume-btn ms-auto">Resume</a>
+    </div>
+</nav>
+
+
+
+@code {
+    
+}

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Amazon.JSII.Runtime" Version="1.111.0" />
+      <PackageReference Include="bootstrap" Version="5.3.3" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.3.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.3.0" />
+    </ItemGroup>
+
+</Project>
