@@ -57,6 +57,21 @@
         <a href="@link.Url" target="_blank" class="btn btn-outline-dark btn-sm me-2">@link.Text</a>
       }
     </div>
+    
+    @if (SelectedExp.ExampleImages.Count > 0)
+    {
+      <div class="mt-5 blurb-examples">
+        <h6 class="blurb-header mb-3">
+          Examples
+        </h6>
+        @foreach (var each in SelectedExp.ExampleImages)
+        { 
+          <div class="blurb-image-container">
+            <img src="@each" alt="Example image" />
+          </div>
+        }
+      </div>
+    }
   </div>
 }
 
@@ -97,7 +112,16 @@
               "VB.NET",
               "JavaScript",
               "ASP.NET"
-            },Links = new() { new Link { Text = "GitHub", Url = "https://github.com/yourrepo" } }
+            },
+            Links = new()
+            {
+              new Link { Text = "GitHub", Url = "https://github.com/yourrepo" } 
+            },
+            ExampleImages = new List<string>() {
+              "ras-bays.png",
+              "ras-dashboard.png",
+              "ras-login.png"
+            }
         },
         // add other experiences here
     };
@@ -124,6 +148,7 @@
         public List<string> Bullets { get; set; }
         public List<string> Technologies { get; set; }
         public List<Link> Links { get; set; }
+        public List<string> ExampleImages { get; set; }
     }
 
     private class Link
