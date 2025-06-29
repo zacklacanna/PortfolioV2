@@ -29,14 +29,3 @@
     transition: transform .3s;
 }
 .netflix-card:hover .card-overlay { transform: translateY(0); }
-
-.close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: #000;
-    cursor: pointer;
-}

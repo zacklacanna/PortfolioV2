@@ -1,4 +1,5 @@
 @using System.Collections.Generic
+@inject IJSRuntime JS
 
 <section id="experience" class="py-5 section-bg" aria-label="experience">
   <div class="container">
@@ -6,7 +7,7 @@
     <div class="d-flex flex-wrap justify-content-center gap-4">
       @foreach (var exp in Experiences)
       {
-        <div class="netflix-card" @onclick="() => ShowDetail(exp)" style="cursor: pointer;">
+        <div class="netflix-card" @onclick="e => ShowDetail(exp)" style="cursor: pointer;">
           <div class="card-img" style="background-image: url('@exp.ImageUrl');"></div>
           <div class="card-overlay">
             <h5>@exp.Role</h5>
@@ -20,58 +21,62 @@
 
 @if (SelectedExp is not null)
 {
-  <div class="modal-backdrop" @onclick="() => CloseDetail()"></div>
-  <div class="detail-modal" @onclick:stopPropagation>
-    <button class="close-btn" @onclick="() => CloseDetail()">×</button>
-    <div class="experience-header">
-      <h3>@SelectedExp.Role</h3>
-      <p class="text-muted">@SelectedExp.Company • @SelectedExp.Location</p>
-    </div>
-    
-    <div class="blurb-content mt-4">
-      <div class="blurb-container">
-        <p class="blurb-header mb-3">
-          @SelectedExp.Dates
-        </p>
-        <ul class="blurb-list mb-5">
-          @foreach (var bullet in SelectedExp.Bullets)
-          {
-            <li class="blurb-item blurb-header">@bullet</li>
-          }
-        </ul>
-        <h6 class="blurb-header">
-          Technologies
-        </h6>
-        <div class="d-flex flex-wrap mt-2">
-          @foreach (var tech in SelectedExp.Technologies)
-          {
-            <span class="badge tech-badge me-2 mb-2">@tech</span>
-          }
-        </div>
+  <div class="modal-backdrop @(ShownModel.Equals(SelectedExp.Company) ? "show" : "")" @onclick="async() => await CloseDetail()"></div>
+  <div class="detail-modal @(ShownModel.Equals(SelectedExp.Company) ? "show" : "")"
+       @onclick:stopPropagation>
+    <div class="modal-header">
+      <button class="close-btn" @onclick="async() => await CloseDetail()">×</button>
+      <div class="experience-header">
+        <h3>@SelectedExp.Role</h3>
+        <p class="text-muted">@SelectedExp.Company • @SelectedExp.Location</p>
       </div>
-      
     </div>
-    <div class="mt-5">
-      @foreach (var link in SelectedExp.Links)
-      {
-        <a href="@link.Url" target="_blank" class="btn btn-outline-dark btn-sm me-2">@link.Text</a>
-      }
-    </div>
-    
-    @if (SelectedExp.ExampleImages.Count > 0)
-    {
-      <div class="mt-5 blurb-examples">
-        <h6 class="blurb-header mb-3">
-          Examples
-        </h6>
-        @foreach (var each in SelectedExp.ExampleImages)
-        { 
-          <div class="blurb-image-container">
-            <img src="@each" alt="Example image" />
+    <div class="blurb-scroll">
+      <div class="blurb-content mt-4">
+        <div class="blurb-container">
+          <p class="blurb-header mb-3">
+            @SelectedExp.Dates
+          </p>
+          <ul class="blurb-list mb-5">
+            @foreach (var bullet in SelectedExp.Bullets)
+            {
+              <li class="blurb-item blurb-header">@bullet</li>
+            }
+          </ul>
+          <h6 class="blurb-header">
+            Technologies
+          </h6>
+          <div class="d-flex flex-wrap mt-2">
+            @foreach (var tech in SelectedExp.Technologies)
+            {
+              <span class="badge tech-badge me-2 mb-2">@tech</span>
+            }
           </div>
+        </div>
+
+      </div>
+      <div class="mt-5">
+        @foreach (var link in SelectedExp.Links)
+        {
+          <a href="@link.Url" target="_blank" class="btn btn-outline-dark btn-sm me-2">@link.Text</a>
         }
       </div>
-    }
+
+      @if (SelectedExp.ExampleImages.Count > 0)
+      {
+        <div class="mt-5 blurb-examples">
+          <h6 class="blurb-header mb-3">
+            Examples
+          </h6>
+          @foreach (var each in SelectedExp.ExampleImages)
+          {
+            <div class="blurb-image-container">
+              <img src="@each" alt="Example image"/>
+            </div>
+          }
+        </div>
+      }
+    </div>
   </div>
 }
 
@@ -127,14 +132,20 @@
     };
 
     private ExpModel SelectedExp;
+    private double ClickX, ClickY;
+    private string ShownModel = string.Empty;
 
-    private void ShowDetail(ExpModel exp)
+    async Task ShowDetail(ExpModel exp)
     {
-        SelectedExp = exp;
+      SelectedExp = exp;
+      ShownModel = SelectedExp.Company;
+      await InvokeAsync(StateHasChanged);
     }
 
-    private void CloseDetail()
+    async Task CloseDetail()
     {
+        ShownModel = string.Empty;
+        await Task.Delay(150);
         SelectedExp = null;
     }
 
