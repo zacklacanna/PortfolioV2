@@ -3,16 +3,17 @@
 
 <section id="experience" class="py-5 section-bg" aria-label="experience">
   <div class="container">
-    <h2 class="section-title text-center mb-5">Experience</h2>
-    <div class="d-flex flex-wrap justify-content-center gap-4">
+    <h2 class="section-title align-content-start justify-content-start mb-5">My Experience</h2>
+    <div class="d-flex flex-nowrap overflow-auto scroll-x-container">
       @foreach (var exp in Experiences)
       {
-        <div class="netflix-card" @onclick="e => ShowDetail(exp)" style="cursor: pointer;">
+        <div class="netflix-card" @onclick="() => ShowDetail(exp)">
           <div class="card-img" style="background-image: url('@exp.ImageUrl');"></div>
           <div class="card-overlay">
+            <p class="mb-1">@exp.Company</p>
             <h5>@exp.Role</h5>
-            <p class="mb-0 text-muted">@exp.Company</p>
           </div>
+          <div class="card-hover-text">Click to see details</div>
         </div>
       }
     </div>
@@ -37,12 +38,9 @@
           <p class="blurb-header mb-3">
             @SelectedExp.Dates
           </p>
-          <ul class="blurb-list mb-5">
-            @foreach (var bullet in SelectedExp.Bullets)
-            {
-              <li class="blurb-item blurb-header">@bullet</li>
-            }
-          </ul>
+          <p class="blurb-description mt-3 mb-5">
+            @SelectedExp.Description
+          </p>
           <h6 class="blurb-header">
             Technologies
           </h6>
@@ -55,23 +53,26 @@
         </div>
 
       </div>
-      <div class="mt-5">
-        @foreach (var link in SelectedExp.Links)
-        {
-          <a href="@link.Url" target="_blank" class="btn btn-outline-dark btn-sm me-2">@link.Text</a>
-        }
-      </div>
+      @if (SelectedExp.Links.Count > 0)
+      {
+        <div class="mt-5">
+          @foreach (var link in SelectedExp.Links)
+          {
+            <a href="@link.Url" target="_blank" class="btn btn-outline-dark btn-sm me-2">@link.Text</a>
+          }
+        </div>
+      }
 
       @if (SelectedExp.ExampleImages.Count > 0)
       {
         <div class="mt-5 blurb-examples">
           <h6 class="blurb-header mb-3">
-            Examples
+            Images
           </h6>
           @foreach (var each in SelectedExp.ExampleImages)
           {
             <div class="blurb-image-container">
-              <img src="@each" alt="Example image"/>
+              <img src="@each" alt=""/>
             </div>
           }
         </div>
@@ -89,16 +90,17 @@
             Company = "Range Automation Systems",
             Dates = "Jan 2024 – Present",
             Location = "Scottsdale, AZ",
-            ImageUrl = "images/ras_team.jpg",
-            Bullets = new List<string>
-            {
-              "Led end-to-end development of a Blazor web app capable of remotely tracking driving range statistics globally, integrating REST API for remote start/stop control, member integration, and error tracking.",
-              "Engineered a multi-modal seq-to-seq neural network in Python using TensorFlow/Keras to analyze CSV/PDF error logs, identify error trends, and generate actionable recommendations for clients.",
-              "Designed and implemented a Python app featuring OCR and TensorFlow to automate real-time golf-ball sorting by color and brand, achieving a 500% increase in throughput.",
-              "Designed and managed end-to-end AWS API Gateway REST endpoints, Lambda integrations, backend services, and web-app data flows for scalable, client-specific cloud processing.",
-              "Engineered scalable backend SaaS in C#, Java, and VB.NET to integrate external APIs and manage machine operations across all venues.",
-              "Architected and deployed AWS API Gateway WebSocket APIs with Lambda and DynamoDB-based state management, secured via Cognito IAM authorizers and monitored by CloudWatch, enabling event-driven actions between Blazor front-end and backend services."
-            },
+            ImageUrl = "cards/ras-card.png",
+            Description = "I’ve led the full-stack development of automated golf systems " +
+                          "by building a Blazor web app for global tracking and remote control of " +
+                          "equipment, architecting AWS REST and WebSocket APIs (with Lambda, DynamoDB, " +
+                          "Cognito, and CloudWatch) for scalable, event-driven operations, and engineering " +
+                          "back-end SaaS services in C#, Java, and VB.NET. On the data side, I created " +
+                          "Python-based solutions—ranging from a TensorFlow/Keras seq-to-seq model that analyzes " +
+                          "error logs and generates recommendations to an OCR/TensorFlow application that " +
+                          "automates golf-ball sorting, boosting throughput fivefold. Together, these efforts " +
+                          "integrate cloud architecture, machine learning, and real-time automation " +
+                          "to deliver high-performance, client-customized solutions.",
             Technologies = new()
             {
               "Blazor",
@@ -116,18 +118,117 @@
               "C#",
               "VB.NET",
               "JavaScript",
-              "ASP.NET"
+              "ASP.NET",
+              "Git"
             },
             Links = new()
             {
-              new Link { Text = "GitHub", Url = "https://github.com/yourrepo" } 
+              new Link { Text = "Website", Url = "https://web.rangesystems.com" } 
             },
             ExampleImages = new List<string>() {
-              "ras-bays.png",
-              "ras-dashboard.png",
-              "ras-login.png"
+              "cards/images/ras-bays.png",
+              "cards/images/ras-dashboard.png",
+              "cards/images/ras-login.png"
             }
         },
+        new ExpModel
+        {
+            Role = "Software Engineer",
+            Company = "Circle.ooo",
+            Dates = "May 2023 – Dec 2023",
+            Location = "Tempe, AZ",
+            ImageUrl = "cards/circle-card.png",
+            Description = "I led the development of a key section of the " +
+                          "Circle cross-platform mobile app—building a " +
+                          "precise phone-to-phone distance detection algorithm, " +
+                          "streamlining the profile-sharing workflow to boost throughput " +
+                          "by 300%, and crafting new Share menus in Flutter/Dart to " +
+                          "enhance the UI for seamless wireless data exchange.",
+            Technologies = new()
+            {
+              "Flutter",
+              "Dart",
+              "NFC",
+              "Accelerometer",
+              "Bluetooth Low Energy",
+              "Android Nearby Connections",
+              "IOS Multipeer Connectivity",
+              "Git"
+            },
+            Links = new()
+            {
+              new Link { Text = "Website", Url = "https://circle.ooo" } 
+            },
+            ExampleImages = new List<string>() {
+              "cards/images/circle-dash.png",
+              "cards/images/circle-ui.png",
+              "cards/images/circle-vouch.png"
+            }
+        },
+        new ExpModel
+        {
+          Role = "Software Engineer",
+          Company = "Infosys",
+          Dates = "May 2023 – Aug 2023",
+          Location = "Phoenix, AZ",
+          ImageUrl = "cards/infosys-card.png",
+          Description = "fill in",
+          Technologies = new()
+          {
+            "Python",
+            "Pandas",
+            "Polars",
+            "Beautiful Soup",
+            "Selectolax",
+            "MAPI",
+            "Tkinter",
+            "Argparse",
+            "PyInstaller",
+            "Py2app",
+            "Git"
+          },
+          Links = new()
+          {
+            new Link { Text = "Website", Url = "https://circle.ooo" } 
+          },
+          ExampleImages = new List<string>() {
+            "cards/images/circle-dash.png",
+            "cards/images/circle-ui.png",
+            "cards/images/circle-vouch.png"
+          }
+        },
+        new ExpModel
+        {
+          Role = "Software Engineer",
+          Company = "Infosys",
+          Dates = "May 2023 – Aug 2023",
+          Location = "Phoenix, AZ",
+          ImageUrl = "cards/infosys-card.png",
+          Description = "fill in",
+          Technologies = new()
+          {
+            "Python",
+            "Pandas",
+            "Polars",
+            "Beautiful Soup",
+            "Selectolax",
+            "MAPI",
+            "Tkinter",
+            "Argparse",
+            "PyInstaller",
+            "Py2app",
+            "Git"
+          },
+          Links = new()
+          {
+            new Link { Text = "Website", Url = "https://circle.ooo" } 
+          },
+          ExampleImages = new List<string>() {
+            "cards/images/circle-dash.png",
+            "cards/images/circle-ui.png",
+            "cards/images/circle-vouch.png"
+          }
+        }
         // add other experiences here
     };
 
@@ -156,7 +257,7 @@
         public string Dates { get; set; }
         public string Location { get; set; }
         public string ImageUrl { get; set; }
-        public List<string> Bullets { get; set; }
+        public string Description { get; set; }
         public List<string> Technologies { get; set; }
         public List<Link> Links { get; set; }
         public List<string> ExampleImages { get; set; }

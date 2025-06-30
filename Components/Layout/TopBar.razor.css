@@ -7,27 +7,29 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+/*
 .topbar {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(16,44,63,0.92);  /* translucent warm navy */
+    background: rgba(16,44,63,0.92);
     backdrop-filter: blur(8px);
     padding: 0.75rem 1.5rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.5);
     z-index: 1000;
 }
+*/
 
 .logo-icon {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--secondary);
-    border: 2px solid var(--secondary);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    color: var(--tab-dark);
+    border: 2px solid var(--tab-dark);
     padding: 0.5rem 1rem;
     border-radius: 6px;
     text-decoration: none;
-    margin-right: 20px;       /* space between logo and nav */
+    margin-right: 20px;
+    line-height: 1.5;
 }
 
 .nav-links {
@@ -41,20 +43,24 @@ body {
 .nav-links li a {
     display: flex;
     align-items: center;
-    color: var(--text-light);
+    color: var(--tab-dark);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 400;
     transition: color 0.2s;
+    font-size: 1rem;
+    line-height: 1rem;
 }
 
 .nav-links li a i {
-    color: var(--text-light);
+    color: var(--tab-dark);
     font-size: 1rem;
+    font-weight: 400;
+    line-height: 1rem;
 }
 
 .nav-links li a:hover i,
 .nav-links li a.active i {
-    color: var(--text-light);
+    color: var(--tab-dark);
 }
 
 .link-text {
@@ -68,7 +74,7 @@ body {
     right: 0;
     bottom: -4px;
     height: 2px;
-    background: var(--primary);
+    background: var(--tab-dark);
     transform: scaleX(0);
     transform-origin: left center;
     transition: transform 0.3s ease;
