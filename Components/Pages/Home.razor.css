@@ -4,7 +4,7 @@
 
 /* 2) Center & constrain every section inside .content */
 .content > div {
-    max-width: 800px;
+    max-width: 850px;
     margin: 0 auto;      /* center horizontally */
     padding: 2rem 1rem;  /* vertical + a bit of horizontal breathing room */
 }

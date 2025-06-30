@@ -4,7 +4,7 @@
 <html lang="en">
 
 @{
-    var version = "1.5.2";
+    var version = "1.6.4";
 }
 
 
@@ -27,6 +27,39 @@
     <Routes @rendermode=RenderMode.InteractiveServer />
     <script src="https://kit.fontawesome.com/b235c568eb.js" crossorigin="anonymous"></script>
     <script src="_framework/blazor.web.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const links    = document.querySelectorAll(".nav-links a");
+            const sections = document.querySelectorAll(".content > div[id]");
+
+            function updateActive() {
+                let currentId = sections[0].id;
+                sections.forEach(sec => {
+                    if (window.pageYOffset >= sec.offsetTop - 100) {
+                        currentId = sec.id;
+                    }
+                });
+                links.forEach(link =>
+                    link.classList.toggle(
+                        "active",
+                        link.getAttribute("href") === "#" + currentId
+                    )
+                );
+            }
+
+            window.addEventListener("scroll", updateActive);
+
+            links.forEach(link => {
+                link.addEventListener("click", e => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute("href"));
+                    window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
+                });
+            });
+
+            updateActive();
+        });
+    </script>
 </body>
 
 </html>
