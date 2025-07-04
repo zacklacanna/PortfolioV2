@@ -3,34 +3,33 @@
 <section id="aboutme" class="py-5 section-bg" aria-label="aboutme">
     <div class="about-me">
         
-        <div class="profile-top">
+        <div class="blurb-content p-4">
+            <div class="profile-top mb-3">
 
-            <img src="zack-profile.png" alt="" class="avatar"/>
+                <img src="zack-profile.png" alt="" class="avatar"/>
 
-            <div class="profile-header">
+                <div class="profile-header mb-2">
 
-                <h1>@Name</h1>
-                <p class="meta">@GenerateAge() years old • @Location</p>
+                    <h1>@Name</h1>
+                    <p class="meta">@GenerateAge() years old • @Location</p>
 
-                <div class="d-flex flex-wrap mt-2">
-                    @foreach (var tech in Technologies)
-                    {
-                        <div class="badge tech-badge me-2 mb-2">@tech</div>
-                    }
+                    <div class="d-flex flex-wrap mt-2">
+                        @foreach (var tech in Technologies)
+                        {
+                            <div class="badge tech-badge me-2 mb-2">@tech</div>
+                        }
+                    </div>
                 </div>
+
             </div>
 
-        </div>
-        
-        <div class="profile-bio">
-            <p class="description-text blurb-description">
-                @string.Join(" ", resumeLines)
-            </p>
-            
-        </div>
-        
+            <div class="profile-bio">
+                <p class="description-text blurb-description">
+                    @string.Join(" ", resumeLines)
+                </p>
 
-
+            </div>
+        </div>
     </div>
 </section>
 
@@ -60,17 +59,12 @@
 
     private List<string> resumeLines = new()
     {
-        "Led end-to-end development of a Blazor Web App for global driving-range stats, integrating REST APIs for remote start/stop control, member integration, and error tracking.",
-
-        "Engineered a multi-modal sequence-to-sequence neural network in Python with TensorFlow/Keras to analyze CSV/PDF error logs, identify trends, and generate actionable recommendations.",
-
-        "Designed and implemented a Python application using OCR and TensorFlow to automate real-time golf-ball sorting by color and brand—achieving a 500% efficiency boost.",
-
-        "Designed and managed end-to-end AWS API Gateway, REST endpoints, and Lambda integrations to power scalable, client-specific cloud data processing.",
-
-        "Engineered a scalable backend SaaS platform in C#, Java, and VB.NET, integrating external APIs and managing machine operations across multiple venues.",
-
-        "Architected and deployed AWS API Gateway WebSocket APIs with Lambda and DynamoDB state management, secured via Cognito, enabling event-driven communication between Blazor frontend and backend services."
+        "I'm a full-stack software engineer with expertise in building scalable web applications and cloud-native solutions.",
+        "I specialize in C#, C++, Python, and JavaScript development, with extensive experience architecting Blazor Web Apps, REST APIs, and AWS cloud services including Lambda, API Gateway, and DynamoDB.",
+        "I develop robust backend applications and SaaS platforms using C#, C++, Java, and VB.NET, focusing on API integrations, data processing, and multi-platform scalability.",
+        "My recent work involves developing enterprise SaaS platforms that integrate machine learning capabilities using TensorFlow, computer vision with OCR, and real-time data processing systems.",
+        "I have a proven track record of delivering high-impact solutions that achieve significant performance improvements, from automated sorting systems with 500% efficiency gains to streamlined mobile app experiences with 300% user engagement improvements.",
+        "I thrive on solving complex technical challenges and creating seamless integrations between diverse systems while maintaining scalability and security standards."
     };
 
 }
