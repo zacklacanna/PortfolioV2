@@ -4,55 +4,69 @@
     gap: 2rem;
 }
 
-/* Top row: image + name/title/tags */
-.profile-top {
+/* Horizontal layout: profile info + description side by side */
+.profile-content {
     display: flex;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 3rem;
+}
+
+/* Left side: profile info */
+.profile-left {
+    flex-shrink: 0;
+    width: 400px;
+    min-width: 350px;
+    text-align: center;
+}
+
+/* Right side: description */
+.profile-bio {
+    flex-grow: 1;
+    min-width: 0;
 }
 
 /* Rounded avatar */
 .avatar {
-    flex-shrink: 0;
     width: 350px;
     height: 350px;
     object-fit: cover;
     border-radius: 1.5rem;
-    background: #f0f0f0; /* fallback color */
+    background: #f0f0f0;
+    margin-bottom: 1.5rem;
 }
 
 /* Header block */
 .profile-header h1 {
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     font-size: 2rem;
     color: var(--tab-dark);
 }
+
 .profile-header .meta {
-    margin: 0.25rem 0 1rem;
+    margin: 0 0 1rem 0;
     color: var(--tab-dark);
     font-size: 0.9rem;
 }
 
-
 .description-text {
     white-space: pre-wrap;
     overflow-wrap: break-word;
-}
-
-/* Bio paragraphs */
-.profile-bio p {
-    margin-bottom: 1rem;
     line-height: 1.6;
     color: var(--tab-dark);
 }
 
-/* ── Responsive: stack on mobile ── */
+/* ── Responsive: stack vertically on smaller screens ── */
 @media (max-width: 970px) {
-    .profile-top {
+    .profile-content {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 1.5rem;
+        gap: 2rem;
+    }
+
+    .profile-left {
+        width: 100%;
+        min-width: unset;
     }
 
     .avatar {

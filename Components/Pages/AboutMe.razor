@@ -1,33 +1,32 @@
 @using System.Globalization
 
-<section id="aboutme" class="py-5 section-bg" aria-label="aboutme">
+<section id="about" class="py-5 section-bg" aria-label="about">
     <div class="about-me">
-        
         <div class="blurb-content p-4">
-            <div class="profile-top mb-3">
+            <div class="profile-content">
+                <!-- Left side: Avatar + Name + Badges -->
+                <div class="profile-left">
+                    <img src="zack-profile.png" alt="Zack LaCanna" class="avatar"/>
 
-                <img src="zack-profile.png" alt="" class="avatar"/>
+                    <div class="profile-header">
+                        <h1>@Name</h1>
+                        <p class="meta">@GenerateAge() years old • @Location</p>
 
-                <div class="profile-header mb-2">
-
-                    <h1>@Name</h1>
-                    <p class="meta">@GenerateAge() years old • @Location</p>
-
-                    <div class="d-flex flex-wrap mt-2">
-                        @foreach (var tech in Technologies)
-                        {
-                            <div class="badge tech-badge me-2 mb-2">@tech</div>
-                        }
+                        <div class="d-flex flex-wrap justify-content-start">
+                            @foreach (var tech in Technologies)
+                            {
+                                <div class="badge tech-badge me-2 mb-2">@tech</div>
+                            }
+                        </div>
                     </div>
                 </div>
 
-            </div>
-
-            <div class="profile-bio">
-                <p class="description-text blurb-description">
-                    @string.Join(" ", resumeLines)
-                </p>
-
+                <!-- Right side: Description -->
+                <div class="profile-bio">
+                    <p class="description-text">
+                        @string.Join(" ", resumeLines)
+                    </p>
+                </div>
             </div>
         </div>
     </div>
