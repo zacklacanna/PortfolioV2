@@ -34,6 +34,7 @@ body {
 .topbar-header {
     display: flex;
     flex-direction: column;
+    margin-right: 20px;
     line-height: 1;
 }
 .topbar-name {
@@ -47,6 +48,25 @@ body {
     margin-top: 2px;
 }
 
+@media (max-width: 970px) {
+    /* turn your vertical links into a horizontal icon bar */
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;  /* or start/end, as you like */
+        gap: 0.5rem !important;   /* 👈 tighter spacing between icons */
+        margin: 1rem 0;           /* optional vertical margin */
+    }
+        .nav-links .link-text {
+            display: none;
+        }
+    
+        /* shrink the click area a bit if you want */
+        .nav-links a {
+            padding: 0.25rem;
+        }
+}
+
 .logo-icon {
     font-size: var(--text-xl);
     font-weight: 500;
@@ -55,7 +75,6 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 6px;
     text-decoration: none;
-    margin-right: 20px;
     line-height: 1.5;
 }
 
