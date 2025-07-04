@@ -1,0 +1,58 @@
+@using System.Globalization
+
+<section id="aboutme" class="py-5 section-bg" aria-label="aboutme">
+    <div class="about-me">
+        
+        <div class="profile-top">
+
+            <img src="zack-profile.png" alt="" class="avatar"/>
+
+            <div class="profile-header">
+
+                <h1>@Name</h1>
+                <p class="meta">@GenerateAge() years old • @Location</p>
+
+                <div class="d-flex flex-wrap mt-2">
+                    @foreach (var tech in Technologies)
+                    {
+                        <div class="badge tech-badge me-2 mb-2">@tech</div>
+                    }
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+</section>
+
+
+@code {
+
+    string Name = "Zack LaCanna";
+    string Location = "Scottsdale, Arizona";
+
+    List<string> Technologies { get; set; } = new()
+    {
+        "C#", "Python", "AI", "Full-Stack", "Cloud Computing"
+    };
+
+    private int CalculateAge(DateTime birthDate)
+    {
+        var today = DateTime.Today;
+        var age   = today.Year - birthDate.Year;
+        if (today < birthDate.AddYears(age)) age--;
+        return age;
+    }
+
+    private string GenerateAge()
+    {
+        return CalculateAge(DateTime.ParseExact("08-11-2001","MM-dd-yyyy",CultureInfo.InvariantCulture)).ToString();
+    }
+
+    private string Description = "As a Full-Stack Software Engineer at Range Automation Systems, I specialize in developing scalable, cloud-integrated web applications and intelligent automation tools. Currently, I lead the development of a global Blazor Web Application that provides real-time driving range statistics and remote control capabilities for over 50 clients. This platform integrates OAuth-based authentication, live data tracking, and REST API communication to enable seamless, location-independent control and monitoring—dramatically improving operational efficiency and accessibility.\n\nBeyond web development, I bring strong experience in API integration, database management, and AWS infrastructure to ensure reliable, secure, and performant applications. I’m also passionate about crafting clean, responsive, and intuitive user interfaces using modern front-end frameworks.\n\nAdditionally, I engineered a Python-based application utilizing OpenCV, Tesseract, and machine learning to automate golf ball sorting, increasing efficiency by approximately 500%. This system intelligently classifies balls by color, cleanliness, logos, and text—highlighting my ability to combine computer vision and AI with real-world functionality.";
+
+
+}

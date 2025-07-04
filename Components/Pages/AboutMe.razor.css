@@ -1,0 +1,57 @@
+.about-me {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Top row: image + name/title/tags */
+.profile-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+/* Rounded avatar */
+.avatar {
+    flex-shrink: 0;
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    background: #f0f0f0; /* fallback color */
+}
+
+/* Header block */
+.profile-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--tab-dark);
+}
+.profile-header .meta {
+    margin: 0.25rem 0 1rem;
+    color: var(--tab-dark);
+    font-size: 0.9rem;
+}
+
+
+/* Bio paragraphs */
+.profile-bio p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: var(--tab-dark);
+}
+
+/* ── Responsive: stack on mobile ── */
+@media (max-width: 970px) {
+    .profile-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .avatar {
+        width: 250px;
+        height: 250px;
+    }
+}

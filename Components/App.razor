@@ -4,7 +4,7 @@
 <html lang="en">
 
 @{
-    var version = "1.8.0";
+    var version = "1.8.4";
 }
 
 
@@ -28,39 +28,54 @@
     <script src="https://kit.fontawesome.com/b235c568eb.js" crossorigin="anonymous"></script>
     <script src="_framework/blazor.web.js"></script>
     <script>
-        // — smooth scroll + scroll-spy + wheel-forwarding —
-        const main = document.querySelector('.main-content');
-        const links = document.querySelectorAll('.nav-links a');
-        const sections = Array.from(document.querySelectorAll('.main-content section[id]'));
+        // 1) grab your topbar links
+        const links = document.querySelectorAll('.topbar .nav-links a');
 
-        // smooth scroll & highlight
-        links.forEach(a => {
-            a.addEventListener('click', e => {
+        // 2) and the sections they point to
+        const sections = Array.from(document.querySelectorAll('section[id]'));
+
+        // 3) smooth scroll + underline on click
+        links.forEach(link => {
+            link.addEventListener('click', e => {
                 e.preventDefault();
-                document.querySelector(a.getAttribute('href'))
-                    .scrollIntoView({ behavior: 'smooth', block: 'start' });
-                links.forEach(x => x.classList.remove('active'));
-                a.classList.add('active');
+                const target = document.querySelector(link.getAttribute('href'));
+                if (!target) return;
+
+                // smooth scroll the window
+                window.scrollTo({
+                    top: target.offsetTop,
+                    behavior: 'smooth'
+                });
+
+                // highlight immediately
+                links.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
             });
         });
 
-        // scroll-spy
+        // 4) scroll-spy: watch window scroll position
         function onScroll() {
-            const pos = main.scrollTop + 100;
-            let cur = sections[0]?.id;
-            sections.forEach(s => { if (s.offsetTop <= pos) cur = s.id; });
-            links.forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
+            const scrollPos = window.scrollY + 100; // tweak offset as needed
+
+            // find last section scrolled past
+            let currentId = sections[0]?.id;
+            sections.forEach(sec => {
+                if (sec.offsetTop <= scrollPos) {
+                    currentId = sec.id;
+                }
+            });
+
+            // toggle .active (which triggers your underline CSS)
+            links.forEach(link => {
+                link.classList.toggle(
+                    'active',
+                    link.getAttribute('href') === `#${currentId}`
+                );
             });
         }
-        main.addEventListener('scroll', onScroll);
-        window.addEventListener('load', onScroll);
 
-        // forward wheel events from sidebar into main-content
-        document.querySelector('.sidebar').addEventListener('wheel', e => {
-            main.scrollBy({ top: e.deltaY });
-            e.preventDefault();
-        });
+        window.addEventListener('scroll', onScroll);
+        window.addEventListener('load', onScroll);
     </script>
 </body>
 
