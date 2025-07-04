@@ -34,6 +34,11 @@
 }
 
 
+.description-text {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
 /* Bio paragraphs */
 .profile-bio p {
     margin-bottom: 1rem;

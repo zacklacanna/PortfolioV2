@@ -20,9 +20,15 @@
                 </div>
             </div>
 
-
-
         </div>
+        
+        <div class="profile-bio">
+            <p class="description-text blurb-description">
+                @string.Join(" ", resumeLines)
+            </p>
+            
+        </div>
+        
 
 
     </div>
@@ -52,7 +58,19 @@
         return CalculateAge(DateTime.ParseExact("08-11-2001","MM-dd-yyyy",CultureInfo.InvariantCulture)).ToString();
     }
 
-    private string Description = "As a Full-Stack Software Engineer at Range Automation Systems, I specialize in developing scalable, cloud-integrated web applications and intelligent automation tools. Currently, I lead the development of a global Blazor Web Application that provides real-time driving range statistics and remote control capabilities for over 50 clients. This platform integrates OAuth-based authentication, live data tracking, and REST API communication to enable seamless, location-independent control and monitoring—dramatically improving operational efficiency and accessibility.\n\nBeyond web development, I bring strong experience in API integration, database management, and AWS infrastructure to ensure reliable, secure, and performant applications. I’m also passionate about crafting clean, responsive, and intuitive user interfaces using modern front-end frameworks.\n\nAdditionally, I engineered a Python-based application utilizing OpenCV, Tesseract, and machine learning to automate golf ball sorting, increasing efficiency by approximately 500%. This system intelligently classifies balls by color, cleanliness, logos, and text—highlighting my ability to combine computer vision and AI with real-world functionality.";
+    private List<string> resumeLines = new()
+    {
+        "Led end-to-end development of a Blazor Web App for global driving-range stats, integrating REST APIs for remote start/stop control, member integration, and error tracking.",
 
+        "Engineered a multi-modal sequence-to-sequence neural network in Python with TensorFlow/Keras to analyze CSV/PDF error logs, identify trends, and generate actionable recommendations.",
+
+        "Designed and implemented a Python application using OCR and TensorFlow to automate real-time golf-ball sorting by color and brand—achieving a 500% efficiency boost.",
+
+        "Designed and managed end-to-end AWS API Gateway, REST endpoints, and Lambda integrations to power scalable, client-specific cloud data processing.",
+
+        "Engineered a scalable backend SaaS platform in C#, Java, and VB.NET, integrating external APIs and managing machine operations across multiple venues.",
+
+        "Architected and deployed AWS API Gateway WebSocket APIs with Lambda and DynamoDB state management, secured via Cognito, enabling event-driven communication between Blazor frontend and backend services."
+    };
 
 }
