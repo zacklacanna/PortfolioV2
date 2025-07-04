@@ -92,18 +92,28 @@ a, .btn-link {
     }
 
 .blurb-image-container {
-    height: 500px;
-    margin: 0 auto 1.5rem;   /* center it and add bottom gap */
+    width: 100%;
+    aspect-ratio: 16 / 9;      /* preserves a 16:9 frame */
+    margin: 0 auto 1.5rem;
     overflow: hidden;
-    border-radius: 1.5rem;
+    border-radius: 0.25rem;
     position: relative;
 }
-    .blurb-image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;       /* crop/cover to fill the container */
-        display: block;
+
+/* fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 16/9) {
+    .blurb-image-container {
+        height: 500px;
+        max-height: 80vh;        /* shrink if viewport is shorter */
     }
+}
+
+.blurb-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
 .blurb-header {
     color: oklch(0.556 0 0);
