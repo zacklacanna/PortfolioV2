@@ -1,24 +1,51 @@
-html { scroll-behavior: smooth; }
-body {
-    padding-top: 4rem;        /* space for fixed navbar */
+html {
+    scroll-behavior: smooth;
+    height: 100%;
     margin: 0;
-    background: var(--bg-dark);
-    color: var(--text-light);
-    font-family: 'Poppins', sans-serif;
+    padding: 0;
 }
 
-/*
+body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    height: 100%;
+}
+
 .topbar {
     position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(16,44,63,0.92);
-    backdrop-filter: blur(8px);
-    padding: 0.75rem 1.5rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    top: 0; left: 0; right: 0;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 0.75rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     z-index: 1000;
 }
-*/
+
+/* ── Left group: logo + name/title ───────────── */
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;            /* space between logo and text */
+}
+
+/* Name & role stacked */
+.topbar-header {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+.topbar-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111;
+}
+.topbar-role {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 2px;
+}
 
 .logo-icon {
     font-size: var(--text-xl);
@@ -80,24 +107,24 @@ body {
     transition: transform 0.3s ease;
 }
 
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;                /* default black */
+    font-size: 1.25rem;
+    margin-left: 1rem;          /* spacing between icons */
+    transition: color 0.2s, transform 0.2s;
+}
+.social-icon:first-child {
+    margin-left: 0;             /* no gap before first one */
+}
+.social-icon:hover {
+    color: #555;                /* lighter on hover */
+    transform: translateY(-2px);/* subtle lift */
+}
+
 .nav-links li a:hover .link-text::after,
 .nav-links li a.active .link-text::after {
     transform: scaleX(1);
-}
-
-.resume-btn {
-    padding: 0.5rem 1.25rem;
-    border: 1px solid var(--primary);
-    background: var(--primary);
-    color: var(--bg-dark);
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.resume-btn:hover {
-    background: var(--secondary);
-    color: var(--bg-dark);
-    transform: translateY(-2px);
 }

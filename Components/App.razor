@@ -4,7 +4,7 @@
 <html lang="en">
 
 @{
-    var version = "1.6.4";
+    var version = "1.7.5";
 }
 
 
@@ -28,36 +28,38 @@
     <script src="https://kit.fontawesome.com/b235c568eb.js" crossorigin="anonymous"></script>
     <script src="_framework/blazor.web.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const links    = document.querySelectorAll(".nav-links a");
-            const sections = document.querySelectorAll(".content > div[id]");
+        // — smooth scroll + scroll-spy + wheel-forwarding —
+        const main = document.querySelector('.main-content');
+        const links = document.querySelectorAll('.nav-links a');
+        const sections = Array.from(document.querySelectorAll('.main-content section[id]'));
 
-            function updateActive() {
-                let currentId = sections[0].id;
-                sections.forEach(sec => {
-                    if (window.pageYOffset >= sec.offsetTop - 100) {
-                        currentId = sec.id;
-                    }
-                });
-                links.forEach(link =>
-                    link.classList.toggle(
-                        "active",
-                        link.getAttribute("href") === "#" + currentId
-                    )
-                );
-            }
-
-            window.addEventListener("scroll", updateActive);
-
-            links.forEach(link => {
-                link.addEventListener("click", e => {
-                    e.preventDefault();
-                    const target = document.querySelector(link.getAttribute("href"));
-                    window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
-                });
+        // smooth scroll & highlight
+        links.forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href'))
+                    .scrollIntoView({ behavior: 'smooth', block: 'start' });
+                links.forEach(x => x.classList.remove('active'));
+                a.classList.add('active');
             });
+        });
 
-            updateActive();
+        // scroll-spy
+        function onScroll() {
+            const pos = main.scrollTop + 100;
+            let cur = sections[0]?.id;
+            sections.forEach(s => { if (s.offsetTop <= pos) cur = s.id; });
+            links.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
+            });
+        }
+        main.addEventListener('scroll', onScroll);
+        window.addEventListener('load', onScroll);
+
+        // forward wheel events from sidebar into main-content
+        document.querySelector('.sidebar').addEventListener('wheel', e => {
+            main.scrollBy({ top: e.deltaY });
+            e.preventDefault();
         });
     </script>
 </body>

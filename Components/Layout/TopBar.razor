@@ -2,20 +2,27 @@
 
 <nav class="topbar">
     <div class="container-fluid d-flex align-items-center">
-        <!-- Logo -->
-        <a href="#" class="logo-icon">Z</a>
 
-        <!-- Nav links immediately after logo -->
-        <ul class="nav-links mb-0 d-flex">
+        <!-- Logo + Name/Title -->
+        <div class="topbar-left d-flex align-items-center">
+            <a href="#" class="logo-icon">Z</a>
+            <div class="topbar-header ms-3">
+                <span class="topbar-name">Zack LaCanna</span>
+                <span class="topbar-role">Software Engineer</span>
+            </div>
+        </div>
+
+        <!-- Nav links -->
+        <ul class="nav-links d-flex mb-0">
             <li>
                 <a class="@(Nav.Uri.Contains("#about") ? "active" : "")" href="#about">
-                    <span><i class="fas fa-user"></i></span>
+                    <i class="fas fa-user"></i>
                     <span class="link-text ms-2">About</span>
                 </a>
             </li>
             <li>
                 <a class="@(Nav.Uri.Contains("#experience") ? "active" : "")" href="#experience">
-                    <span><i class="fa-regular fa-briefcase"></i></span>
+                    <i class="fa-regular fa-briefcase"></i>
                     <span class="link-text ms-2">Experience</span>
                 </a>
             </li>
@@ -27,14 +34,28 @@
             </li>
             <li>
                 <a class="@(Nav.Uri.Contains("#contact") ? "active" : "")" href="#contact">
-                    <span><i class="fa-regular fa-envelope"></i></span>
+                    <i class="fa-regular fa-envelope"></i>
                     <span class="link-text ms-2">Contact</span>
                 </a>
             </li>
         </ul>
 
-        <!-- Resume button aligned to right -->
-        <a href="resume.pdf" target="_blank" class="resume-btn ms-auto">Resume</a>
+        <!-- Social icons on the right -->
+        <div class="ms-auto d-flex align-items-center">
+            <a class="social-icon" href="https://github.com/zacklacanna" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a class="social-icon" href="https://www.linkedin.com/in/zacklacanna" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a class="social-icon" href="mailto:zacklacanna23@gmail.com" aria-label="Email">
+                <i class="fa-regular fa-envelope"></i>
+            </a>
+            <a class="social-icon" href="/resume.pdf" target="_blank" aria-label="Resume">
+                <i class="fa-regular fa-file-lines"></i>
+            </a>
+        </div>
+
     </div>
 </nav>
 

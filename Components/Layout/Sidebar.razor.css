@@ -1,116 +1,106 @@
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 400px;       /* your desired width */
-    height: 100vh;      /* full viewport height */
+    /* let the parent .split-container handle positioning and height */
+    position: relative;
+    flex: 1;
+    max-width: 50%;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
-    box-sizing: border-box;
-    background: #fff;   /* or your theme color */
+    padding: 2rem 1.5rem;
+    background: #fff;
+    overflow-y: hidden;
 }
 
+/* = Logo = */
 .logo-icon {
-    font-size: var(--text-xl);
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--tab-dark);
     border: 2px solid var(--tab-dark);
     padding: 0.5rem 1rem;
     border-radius: 6px;
     text-decoration: none;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     display: inline-block;
-    line-height: 1.5;
 }
 
-.social-icons {
-    margin-top: auto;         /* stick to bottom */
-    display: flex;
-    justify-content: start;  /* center horizontally */
-    gap: 1rem;                /* exactly 1rem between each icon */
-    padding-bottom: 1rem;
+/* = Header = */
+.sidebar-header {
+    margin-bottom: 2rem;
+}
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--tab-dark);
+}
+.sidebar-header p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--tab-dark);
 }
 
-.social-icons a {
-    font-size: 1.5rem;
-    color: #000;
-}
-
-
-/* Nav list reset */
+/* = Nav Links = */
 .nav-links {
     list-style: none;
-    display: flex;
-    flex-direction: column;  /* vertical list */
-    gap: 2rem;               /* space between items */
     margin: 0;
     padding: 0;
-    /* If the list grows too tall, uncomment: */
-    /* flex: 1 1 auto; overflow-y: auto; */
-}
-
-.nav-links li a {
+    flex-grow: 1;
     display: flex;
-    align-items: center;
-    color: var(--tab-dark);
-    text-decoration: none;
-    font-weight: 400;
-    transition: color 0.2s;
-    font-size: 1rem;
-    line-height: 1rem;
+    flex-direction: column;
+    gap: 1.25rem;
 }
-
-.nav-links li a i {
-    color: var(--tab-dark);
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1rem;
-}
-
-.nav-links li a:hover i,
-.nav-links li a.active i {
-    color: var(--tab-dark);
-}
-
-/* Each link: flex for icon + text */
 .nav-links a {
     display: flex;
     align-items: center;
-    gap: 0.5rem;         /* space between icon & text */
+    gap: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 1.5rem;
     text-decoration: none;
-    padding: 0.25rem 0;
+    color: var(--tab-dark);
+    transition: background 0.2s, color 0.2s;
 }
 
-/* Positioning context for underline */
+.nav-links a.active {
+    color: #000;
+}
+.nav-links a:hover i,
+.nav-links a.active i {
+    color: #000;
+}
+
+/* = Underline Decoration = */
 .nav-links .link-text {
     position: relative;
-    padding-bottom: 4px; /* room for underline */
+    padding-bottom: 4px;
 }
-
-.link-text::after {
+.nav-links .link-text::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -2px;            /* tweak as needed */
+    left: 0; right: 0; bottom: -2px;
     height: 2px;
-    background: var(--tab-dark);
+    background: #000;
     transform: scaleX(0);
     transform-origin: left center;
     transition: transform 0.3s ease;
 }
-
-.nav-links li a:hover .link-text::after,
-.nav-links li a.active .link-text::after {
+.nav-links a:hover .link-text::after,
+.nav-links a.active .link-text::after {
     transform: scaleX(1);
 }
-/* On active (scroll-spy toggles .active on the <a>) */
-.nav-links a.active .link-text::after {
-    width: 100%;
-}
 
-/* Optional: show underline on hover too */
-.nav-links a:hover .link-text::after {
-    width: 100%;
+/* = Social Icons (bottom) = */
+.social-icons {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+.social-icons a {
+    font-size: 1.4rem;
+    color: var(--tab-dark);
+    transition: color 0.2s;
+}
+.social-icons a:hover {
+    color: #007bff;
 }

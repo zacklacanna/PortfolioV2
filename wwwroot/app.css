@@ -198,9 +198,3 @@ h1:focus {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
-
-@media (max-height: 700px) {
-    .sidebar .social-icons {
-        display: none;
-    }
-}

@@ -2,18 +2,22 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #0a192f; /* Set the background color for the whole page */
-    color: #ccd6f6; /* Set a default text color */
+    background-color: #fff;
+    color: #ccd6f6;
     font-family: 'Oswald', 'sans-serif';
 }
 
+/* STACK TopBar above .page */
 .body {
     display: flex;
-    height: 100vh;      /* fill viewport */
+    flex-direction: column;   /* ← stack vertically */
+    height: 100vh;
     margin: 0;
 }
 
+/* let .page fill remaining space and scroll */
 .page {
-    margin-left: 400px;  /* same as sidebar width */
+    flex: 1 1 auto;           /* ← grow to fill container */
+    overflow-y: auto;         /* ← only this pane scrolls */
     padding: 2rem 1rem;
 }
