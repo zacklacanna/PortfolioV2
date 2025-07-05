@@ -16,10 +16,13 @@
     flex-direction: column;
 }
 
-/* AVATAR IMAGE */
 .avatar {
     background: url('zack-profile.png') center/cover no-repeat;
     border-radius: 1.5rem;
+    /* make it a square by default, but scale to its container */
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;        /* lets aspect-ratio do its job */
 }
 
 /* HEADER & METADATA */
@@ -52,102 +55,20 @@
     color: var(--tab-dark);
 }
 
-@media (max-width: 970px) {
-    .profile-content {
-        flex-direction: column;
-        /* make children stretch the full width, not center */
-        align-items: stretch;
-        text-align: center;
-        gap: 2rem;
-        min-height: unset;
-    }
-
+@media (max-width: 992px) {
     .profile-left {
-        /* fill the entire container */
+        align-items: center;  /* center flex-children */
+    }
+
+    .profile-left .avatar {
+        /* stop flex-grow/shrink from kicking in */
+        flex: none !important;
+
+        /* cap the size */
+        max-width: 300px;
         width: 100%;
-        max-width: none;
+        /* aspect-ratio 1:1 means height = width automatically */
 
-        /* drop any hard-coded height */
-        height: auto;
-
-        /* maintain a 300×500 ratio: width/height = 3/5 */
-        aspect-ratio: 3 / 5;
-
-        /* keep your border-radius + overflow */
-        border-radius: 1.5rem;
-        overflow: hidden;
-    }
-
-    .profile-right {
-        width: 100%;
-        text-align: center;
-    }
-
-    .profile-header .d-flex {
-        justify-content: center;
-    }
-}
-/* Use the exact same pattern as your Netflix card */
-.avatar {
-    width: 100%;
-    height: 100%;
-    background-image: url('zack-profile.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* Remove border-radius from here since it's on the parent */
-}
-
-/* Rest of your CSS stays the same */
-.profile-header {
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.profile-header h1 {
-    margin: 0 0 0.5rem 0;
-    font-size: 2rem;
-    color: var(--tab-dark);
-}
-
-.profile-header .meta {
-    margin: 0 0 1rem 0;
-    color: var(--tab-dark);
-    font-size: 0.9rem;
-}
-
-.profile-bio {
-    flex-grow: 1;
-}
-
-.description-text {
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    line-height: 1.6;
-    color: var(--tab-dark);
-}
-
-@media (max-width: 970px) {
-    .profile-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 2rem;
-        min-height: unset;
-    }
-
-    .profile-left {
-        width: 250px;
-        height: 250px; /* Fixed dimensions like your Netflix card */
-        min-width: unset;
-    }
-
-    .profile-right {
-        width: 100%;
-        text-align: center;
-    }
-
-    .profile-header .d-flex {
-        justify-content: center;
+        margin: 0 auto 1.5rem; /* horizontal center + bottom gap */
     }
 }
