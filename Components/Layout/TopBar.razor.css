@@ -48,6 +48,16 @@ body {
     margin-top: 2px;
 }
 
+@media (max-width: 600px) {
+    .topbar-header {
+        display: none;
+    }
+    
+    .logo-icon {
+        margin-right: 0.5rem;
+    }
+}
+
 @media (max-width: 970px) {
     /* turn your vertical links into a horizontal icon bar */
     .nav-links {

@@ -24,9 +24,7 @@
                     </div>
 
                     <div class="profile-bio">
-                        <p class="description-text">
-                            @string.Join(" ", resumeLines)
-                        </p>
+                        <p class="description-text">@string.Join(" ", resumeLines)</p>
                     </div>
                 </div>
             </div>
@@ -57,15 +55,39 @@
     {
         return CalculateAge(DateTime.ParseExact("08-11-2001","MM-dd-yyyy",CultureInfo.InvariantCulture)).ToString();
     }
-
     private List<string> resumeLines = new()
     {
-        "I'm a full-stack software engineer with expertise in building scalable web applications and cloud-native solutions.",
-        "I specialize in C#, C++, Python, and JavaScript development, with extensive experience architecting Blazor Web Apps, REST APIs, and AWS cloud services including Lambda, API Gateway, and DynamoDB.",
-        "I develop robust backend applications and SaaS platforms using C#, C++, Java, and VB.NET, focusing on API integrations, data processing, and multi-platform scalability.",
-        "My recent work involves developing enterprise SaaS platforms that integrate machine learning capabilities using TensorFlow, computer vision with OCR, and real-time data processing systems.",
-        "I have a proven track record of delivering high-impact solutions that achieve significant performance improvements, from automated sorting systems with 500% efficiency gains to streamlined mobile app experiences with 300% user engagement improvements.",
-        "I thrive on solving complex technical challenges and creating seamless integrations between diverse systems while maintaining scalability and security standards."
+        "I am a full-stack engineer specializing in scalable web and cloud-native solutions using C#, Python, C++, Blazor, REST APIs, and AWS (Lambda, API Gateway, DynamoDB).",
+        "I have built complex backends and SaaS applications featuring TensorFlow-powered ML, OCR pipelines, and real-time data processing.",
+        "I thrive on solving complex challenges while ensuring performance, scalability, and reliability."
     };
+    
+    private readonly int teaserCount = 20;
+    private string GenerateTeaser()
+    {
+        string fullBio = string.Join(" ", resumeLines);
+
+        // split into words
+        var words = fullBio
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        // tease the first 20 words
+        return string.Join(" ",
+            words.Take(teaserCount)) + "…";
+        
+    }
+
+    private string GenerateRemainerDescription()
+    {
+        string fullBio = string.Join(" ", resumeLines);
+
+        // split into words
+        var words = fullBio
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        return string.Join(" ",
+            words.Skip(teaserCount));  
+    }
+    
 
 }
