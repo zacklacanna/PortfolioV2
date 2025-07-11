@@ -17,7 +17,7 @@ body, html {
 
 /* let .page fill remaining space and scroll */
 .page {
-    flex: 1 1 auto;           /* ← grow to fill container */
-    overflow-y: auto;         /* ← only this pane scrolls */
-    padding: 2rem 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 74px;
 }

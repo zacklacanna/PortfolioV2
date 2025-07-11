@@ -22,7 +22,7 @@
     /* make it a square by default, but scale to its container */
     width: 100%;
     aspect-ratio: 1 / 1;
-    height: auto;        /* lets aspect-ratio do its job */
+    height: auto;
 }
 
 /* HEADER & METADATA */
@@ -136,15 +136,15 @@
         align-items: center;  /* center flex-children */
     }
 
+    .row.align-items-stretch {
+        align-items: flex-start !important;
+    }
+
+    /* 2. Turn off flex-fill + 100% height on the avatar */
     .profile-left .avatar {
-        /* stop flex-grow/shrink from kicking in */
-        flex: none !important;
-
-        /* cap the size */
-        max-width: 300px;
-        width: 100%;
-        /* aspect-ratio 1:1 means height = width automatically */
-
-        margin: 0 auto 1.5rem; /* horizontal center + bottom gap */
+        background-position: top center !important;
+        background-size: cover !important;
+        max-width: 250px;
+        max-height: 250px;
     }
 }
