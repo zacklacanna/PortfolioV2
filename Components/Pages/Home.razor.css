@@ -1,6 +1,6 @@
 .content {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +9,6 @@
     padding: 1rem;
 }
 
-/* Constrain the card width inside content */
 .content > .section-content {
     max-width: 1200px;
     width: 100%;
@@ -18,15 +17,46 @@
     box-sizing: border-box;
 }
 
-/* Card styling */
 .section-content {
     background-color: #f9fafb;
     border-radius: 1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 2rem;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 1;
+    transform: translateX(0);
 }
 
-/* Navigation controls underneath the card */
+/* Slide and fade out to the left */
+.exit-left {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
+/* Slide and fade out to the right */
+.exit-right {
+    transform: translateX(50px);
+    opacity: 0;
+}
+
+/* Enter starting from the right */
+.enter-right {
+    transform: translateX(50px);
+    opacity: 0;
+}
+
+/* Enter starting from the left */
+.enter-left {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
+/* Animate to neutral position */
+.enter-active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
 .navigation-controls {
     margin-top: 1rem;
     display: flex;

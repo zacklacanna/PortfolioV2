@@ -5,7 +5,8 @@
 <PageTitle>Zack LaCanna</PageTitle>
 
 <div class="content">
-    <div id="@CurrentSection.Id" class="@($"section-content {CurrentSection.Id}")">
+    <div id="@CurrentSection.Id"
+         class="@($"section-content {CurrentSection.Id} {animationClass}")">
         @CurrentSection.Fragment
     </div>
 
@@ -14,7 +15,7 @@
         {
             <button class="nav-btn" @onclick="GoBack">
                 <div class="icon-circle">
-                    <i class="fas fa-arrow-left"></i>
+                    <i class="fa-solid fa-arrow-left"></i>
                 </div>
             </button>
         }
@@ -22,7 +23,7 @@
         {
             <button class="nav-btn" @onclick="GoNext">
                 <div class="icon-circle">
-                    <i class="fas fa-arrow-right"></i>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </div>
             </button>
         }
@@ -33,8 +34,10 @@
 
     [Parameter]
     public EventCallback<string> OnSectionChanged { get; set; }
+    private string animationClass = string.Empty;
     
     private int currentIndex = 0;
+    
     private bool CanGoBack => currentIndex > 0;
     private bool CanGoNext => currentIndex < sections.Length - 1;
     private (string Id, RenderFragment Fragment) CurrentSection => sections[currentIndex];
@@ -47,22 +50,32 @@
         ("contact", @<ContactMe />)
     };
     
-    private async Task GoNext()
+    private async Task AnimateSwitch(int newIndex)
     {
-        if (CanGoNext)
-        {
-            currentIndex++;
-            await OnSectionChanged.InvokeAsync(CurrentSection.Id);
-        }
+        bool forward = newIndex > currentIndex;
+
+        // Exit animation based on direction
+        animationClass = forward ? "exit-left" : "exit-right";
+        StateHasChanged();
+        await Task.Delay(300);
+
+        // Change content
+        currentIndex = newIndex;
+        await OnSectionChanged.InvokeAsync(CurrentSection.Id);
+
+        // Enter animation based on direction
+        animationClass = forward ? "enter-right" : "enter-left";
+        StateHasChanged();
+        await Task.Delay(50);
+        animationClass = "enter-active";
+        StateHasChanged();
+        await Task.Delay(300);
+
+        // Clear animation classes
+        animationClass = string.Empty;
+        StateHasChanged();
     }
 
-    private async Task GoBack()
-    {
-        if (CanGoBack)
-        {
-            currentIndex--;
-            await OnSectionChanged.InvokeAsync(CurrentSection.Id);
-        }
-    }
-    
+    private Task GoNext() => AnimateSwitch(currentIndex + 1);
+    private Task GoBack() => AnimateSwitch(currentIndex - 1);
 }
