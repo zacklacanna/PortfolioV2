@@ -38,11 +38,9 @@ a, .btn-link {
 
 .modal-backdrop {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #333333;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1050;
 }
 
@@ -66,30 +64,60 @@ a, .btn-link {
         font-size: 2rem;
         cursor: pointer;
     }
-
 .detail-modal {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    transition: transform 0.35s ease, opacity 0.15s ease;
-    opacity: 0;
+    top: 50%; left: 50%;
+    width: 90%; max-width: 64rem;
+    max-height: 90vh;
     background: #fff;
-    color: #000;
-    width: 90%;
-    max-width: 64rem;
-    max-height: 80vh;
-    display: flex;
-    flex-direction: column;
     border-radius: 1.5rem;
-    box-sizing: border-box;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    display: flex; flex-direction: column;
+    overflow: hidden;
     z-index: 1060;
-    overflow: hidden; /* hide native scroll */
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.8);
 }
     .detail-modal.show {
+        animation: dropIn 0.35s ease-out forwards;
+    }
+    
+    /* Exit animation */
+    .detail-modal.hide {
+        animation: dropOut 0.35s ease-in forwards;
+    }
+
+/* Keyframes for drop-in */
+@keyframes dropIn {
+    0% {
+        transform: translate(-50%, -60%) scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: translate(-50%, -48%) scale(1.02);
+        opacity: 1;
+    }
+    100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
+}
+
+/* Keyframes for drop-out (reverse) */
+@keyframes dropOut {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    40% {
+        transform: translate(-50%, -48%) scale(1.02);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -60%) scale(0.8);
+        opacity: 0;
+    }
+}
 
 .blurb-image-container {
     width: 100%;
@@ -132,6 +160,8 @@ a, .btn-link {
 .blurb-content {
     background-color: var(--blurb);
     border-radius: 1.5rem;
+    width: 100%;
+    height: 100%;
 }
 
 .blurb-list {

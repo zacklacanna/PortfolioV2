@@ -1,4 +1,5 @@
 using ZackV2.Components;
+using ZackV2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSingleton<ExperienceModalService>();
 builder.Services.AddSession(options =>
 {
     options.Cookie.HttpOnly = true;

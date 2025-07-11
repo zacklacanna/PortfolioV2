@@ -1,5 +1,8 @@
 @using System.Collections.Generic
+@using ZackV2.Classes
+@using ZackV2.Services
 @inject IJSRuntime JS
+@inject ExperienceModalService ExperienceService
 
 <section id="experience" class="content-container py-5" aria-label="experience">
   <div class="container">
@@ -20,71 +23,10 @@
   </div>
 </section>
 
-@if (SelectedExp is not null)
-{
-  <div class="modal-backdrop @(ShownModel.Equals(SelectedExp.Company) ? "show" : "")" @onclick="async() => await CloseDetail()"></div>
-  <div class="detail-modal @(ShownModel.Equals(SelectedExp.Company) ? "show" : "")"
-       @onclick:stopPropagation>
-    <div class="modal-header">
-      <button class="close-btn" @onclick="async() => await CloseDetail()">×</button>
-      <div class="experience-header">
-        <h3>@SelectedExp.Role</h3>
-        <p class="text-muted">@SelectedExp.Company • @SelectedExp.Location</p>
-      </div>
-    </div>
-    <div class="blurb-scroll">
-      <div class="blurb-content mt-4">
-        <div class="blurb-container">
-          <p class="blurb-header mb-3">
-            @SelectedExp.Dates
-          </p>
-          <p class="blurb-description mt-3 mb-5">
-            @SelectedExp.Description
-          </p>
-          <h6 class="blurb-header">
-            Technologies
-          </h6>
-          <div class="d-flex flex-wrap mt-2">
-            @foreach (var tech in SelectedExp.Technologies)
-            {
-              <span class="badge tech-badge me-2 mb-2">@tech</span>
-            }
-          </div>
-        </div>
-
-      </div>
-      @if (SelectedExp.Links.Count > 0)
-      {
-        <div class="mt-5">
-          @foreach (var link in SelectedExp.Links)
-          {
-            <a href="@link.Url" target="_blank" class="btn btn-outline-dark btn-sm me-2">@link.Text</a>
-          }
-        </div>
-      }
-
-      @if (SelectedExp.ExampleImages.Count > 0)
-      {
-        <div class="mt-5 blurb-examples">
-          <h6 class="blurb-header mb-3">
-            Images
-          </h6>
-          @foreach (var each in SelectedExp.ExampleImages)
-          {
-            <div class="blurb-image-container">
-              <img src="@each" alt=""/>
-            </div>
-          }
-        </div>
-      }
-    </div>
-  </div>
-}
-
 @code {
-    private List<ExpModel> Experiences = new()
+    private List<ExperienceClass.ExpModel> Experiences = new()
     {
-        new ExpModel
+        new ExperienceClass.ExpModel
         {
             Role = "Full-Stack Engineer",
             Company = "Range Automation Systems",
@@ -123,7 +65,7 @@
             },
             Links = new()
             {
-              new Link { Text = "Website", Url = "https://web.rangesystems.com" } 
+              new ExperienceClass.Link { Text = "Website", Url = "https://web.rangesystems.com" } 
             },
             ExampleImages = new List<string>() {
               "cards/images/ras-bays.png",
@@ -131,7 +73,7 @@
               "cards/images/ras-login.png"
             }
         },
-        new ExpModel
+        new ExperienceClass.ExpModel
         {
             Role = "Software Engineer",
             Company = "Circle.ooo",
@@ -157,7 +99,7 @@
             },
             Links = new()
             {
-              new Link { Text = "Website", Url = "https://circle.ooo" } 
+              new ExperienceClass.Link { Text = "Website", Url = "https://circle.ooo" } 
             },
             ExampleImages = new List<string>() {
               "cards/images/circle-dash.png",
@@ -165,7 +107,7 @@
               "cards/images/circle-vouch.png"
             }
         },
-        new ExpModel
+        new ExperienceClass.ExpModel
         {
           Role = "Software Engineer",
           Company = "Infosys",
@@ -189,7 +131,7 @@
           },
           Links = new()
           {
-            new Link { Text = "Website", Url = "https://circle.ooo" } 
+            new ExperienceClass.Link { Text = "Website", Url = "https://circle.ooo" } 
           },
           ExampleImages = new List<string>() {
             "cards/images/circle-dash.png",
@@ -200,40 +142,13 @@
         // add other experiences here
     };
 
-    private ExpModel SelectedExp;
+    private ExperienceClass.ExpModel SelectedExp;
     private double ClickX, ClickY;
     private string ShownModel = string.Empty;
 
-    async Task ShowDetail(ExpModel exp)
+    async Task ShowDetail(ExperienceClass.ExpModel exp)
     {
-      SelectedExp = exp;
-      ShownModel = SelectedExp.Company;
-      await InvokeAsync(StateHasChanged);
+      ExperienceService.Show(exp);
     }
 
-    async Task CloseDetail()
-    {
-        ShownModel = string.Empty;
-        await Task.Delay(150);
-        SelectedExp = null;
-    }
-
-    private class ExpModel
-    {
-        public string Role { get; set; }
-        public string Company { get; set; }
-        public string Dates { get; set; }
-        public string Location { get; set; }
-        public string ImageUrl { get; set; }
-        public string Description { get; set; }
-        public List<string> Technologies { get; set; }
-        public List<Link> Links { get; set; }
-        public List<string> ExampleImages { get; set; }
-    }
-
-    private class Link
-    {
-        public string Text { get; set; }
-        public string Url { get; set; }
-    }
 }

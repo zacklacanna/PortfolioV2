@@ -13,6 +13,7 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+    max-height: 600px;
     padding: 0.5rem;
     box-sizing: border-box;
 }
@@ -58,11 +59,15 @@
 }
 
 .navigation-controls {
-    margin-top: 1rem;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     gap: 2rem;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .nav-btn {

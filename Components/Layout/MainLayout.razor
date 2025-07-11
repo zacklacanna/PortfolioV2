@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using ZackV2.Services
+@inherits LayoutComponentBase
+@inject ExperienceModalService ExperienceModal
 
 <div class="body">
   
@@ -7,4 +9,94 @@
     <div class="page">
         @Body
     </div>
+
+    @if (ExperienceModal.Current is not null)
+    {
+        <!-- Full-viewport backdrop -->
+        <div class="modal-backdrop show" @onclick="BeginClose"></div>
+
+        <!-- Detail modal with enter/exit animations -->
+        <div class="detail-modal @(isClosing ? "hide" : "show")" @onclick:stopPropagation>
+            <div class="modal-header">
+                <button class="close-btn" @onclick="BeginClose">×</button>
+                <div class="experience-header">
+                    <h3>@ExperienceModal.Current.Role</h3>
+                    <p class="text-muted">
+                        @ExperienceModal.Current.Company • @ExperienceModal.Current.Location
+                    </p>
+                </div>
+            </div>
+            <div class="blurb-scroll">
+                <!-- Modal content bound to ExperienceModal.Current -->
+                <div class="blurb-content mt-4">
+                    <div class="blurb-container">
+                        <p class="blurb-header mb-3">@ExperienceModal.Current.Dates</p>
+                        <p class="blurb-description mt-3 mb-5">
+                            @ExperienceModal.Current.Description
+                        </p>
+                        <h6 class="blurb-header">Technologies</h6>
+                        <div class="d-flex flex-wrap mt-2">
+                            @foreach (var tech in ExperienceModal.Current.Technologies)
+                            {
+                                <span class="badge tech-badge me-2 mb-2">@tech</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (ExperienceModal.Current.Links.Any())
+                {
+                    <div class="mt-5">
+                        @foreach (var link in ExperienceModal.Current.Links)
+                        {
+                            <a href="@link.Url" target="_blank" class="btn btn-outline-dark btn-sm me-2">
+                                @link.Text
+                            </a>
+                        }
+                    </div>
+                }
+                @if (ExperienceModal.Current.ExampleImages.Any())
+                {
+                    <div class="mt-5 blurb-examples">
+                        <h6 class="blurb-header mb-3">Images</h6>
+                        @foreach (var img in ExperienceModal.Current.ExampleImages)
+                        {
+                            <div class="blurb-image-container">
+                                <img src="@img" alt="Example image" />
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>
+
+@code {
+
+    private bool isClosing = false;
+    
+
+    protected override void OnInitialized()
+    {
+        ExperienceModal.OnChange += OnModalStateChanged;
+    }
+
+    private void OnModalStateChanged()
+    {
+        // Ensure StateHasChanged is called on the correct synchronization context
+        InvokeAsync(StateHasChanged);
+    }
+    
+    private async Task BeginClose()
+    {
+        isClosing = true;
+        StateHasChanged();
+        await Task.Delay(350);
+        ExperienceModal.Close();
+        isClosing = false;
+    }
+
+    public void Dispose()
+        => ExperienceModal.OnChange -= StateHasChanged;
+
+}
