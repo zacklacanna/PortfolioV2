@@ -1,11 +1,13 @@
 ﻿@using ZackV2.Components.Layout
-
+@using ZackV2.Services
+@inject TabService tabs
 @page "/"
 
 <PageTitle>Zack LaCanna</PageTitle>
 
 <div class="content">
     <div id="@CurrentSection.Id"
+         @key="@CurrentSection.Id"
          class="@($"section-content {CurrentSection.Id} {animationClass}")">
         @CurrentSection.Fragment
     </div>
@@ -18,6 +20,8 @@
                     <i class="fa-solid fa-arrow-left"></i>
                 </div>
             </button>
+            
+            
         }
         @if (CanGoNext)
         {
@@ -37,6 +41,7 @@
     private string animationClass = string.Empty;
     
     private int currentIndex = 0;
+    private string activeTab = string.Empty;
     
     private bool CanGoBack => currentIndex > 0;
     private bool CanGoNext => currentIndex < sections.Length - 1;
@@ -53,37 +58,54 @@
     private bool inAnimation = false;
     private async Task AnimateSwitch(int newIndex)
     {
-        if (inAnimation)
-            return;
-
+        if (inAnimation) return;
         inAnimation = true;
-        
-        bool forward = newIndex > currentIndex;
 
-        // Exit animation based on direction
+        bool forward = newIndex > currentIndex;
         animationClass = forward ? "exit-left" : "exit-right";
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
         await Task.Delay(300);
 
-        // Change content
         currentIndex = newIndex;
-        await OnSectionChanged.InvokeAsync(CurrentSection.Id);
+        tabs.SetTab(sections[newIndex].Id);  // sync Topbar
 
-        // Enter animation based on direction
         animationClass = forward ? "enter-right" : "enter-left";
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
         await Task.Delay(50);
+
         animationClass = "enter-active";
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
         await Task.Delay(100);
 
-        // Clear animation classes
         animationClass = string.Empty;
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
 
         inAnimation = false;
     }
 
     private Task GoNext() => AnimateSwitch(currentIndex + 1);
     private Task GoBack() => AnimateSwitch(currentIndex - 1);
+    
+    protected override void OnInitialized()
+    {
+        // 1) start at the service's current tab
+        currentIndex = Array.FindIndex(sections, s => s.Id == tabs.CurrentTab);
+        if (currentIndex < 0) currentIndex = 0;
+
+        // 2) listen for Topbar clicks
+        tabs.OnTabChanged += OnTabChanged;
+    }
+    
+    private async void OnTabChanged(string tabId)
+    {
+        var newIndex = Array.FindIndex(sections, s => s.Id == tabId);
+        if (newIndex >= 0 && newIndex != currentIndex)
+            await AnimateSwitch(newIndex);
+    }
+
+    public void Dispose()
+    {
+        // must remove the same handler reference
+        tabs.OnTabChanged -= OnTabChanged;
+    }
 }

@@ -11,7 +11,11 @@ builder.Services
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddDistributedMemoryCache();
+
+// register singletons
 builder.Services.AddSingleton<ExperienceModalService>();
+builder.Services.AddSingleton<TabService>();
+
 builder.Services.AddSession(options =>
 {
     options.Cookie.HttpOnly = true;

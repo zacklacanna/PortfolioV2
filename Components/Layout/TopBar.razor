@@ -1,4 +1,6 @@
+@using ZackV2.Services
 @inject NavigationManager Nav
+@inject TabService tabs
 
 <nav class="topbar">
     <div class="container-fluid d-flex align-items-center">
@@ -15,25 +17,25 @@
         <!-- Nav links -->
         <ul class="nav-links d-flex mb-0">
             <li>
-                <a href="#about">
+                <a class="@(tabs.CurrentTab == "about" ? "active" : "")" @onclick='() => tabs.SetTab("about")'>
                     <i class="fa-regular fa-user"></i>
                     <span class="link-text ms-2">About</span>
                 </a>
             </li>
             <li>
-                <a class="@(Nav.Uri.Contains("#experience") ? "active" : "")" href="#experience">
+                <a class="@(tabs.CurrentTab == "experience" ? "active" : "")" @onclick='() => tabs.SetTab("experience")'>
                     <i class="fa-solid fa-briefcase"></i>
                     <span class="link-text ms-2">Experience</span>
                 </a>
             </li>
             <li>
-                <a class="@(Nav.Uri.Contains("#projects") ? "active" : "")" href="#projects">
+                <a class="@(tabs.CurrentTab == "projects" ? "active" : "")" @onclick='() => tabs.SetTab("projects")'>
                     <i class="fa-solid fa-code"></i>
                     <span class="link-text ms-2">Projects</span>
                 </a>
             </li>
             <li>
-                <a class="@(Nav.Uri.Contains("#contact") ? "active" : "")" href="#contact">
+                <a class="@(tabs.CurrentTab == "contact" ? "active" : "")" @onclick='() => tabs.SetTab("contact")'>
                     <i class="fa-regular fa-envelope"></i>
                     <span class="link-text ms-2">Contact</span>
                 </a>
@@ -62,5 +64,20 @@
 
 
 @code {
-    
+    protected override void OnInitialized()
+    {
+        // subscribe so when any code calls SetTab(), we re-render
+        tabs.OnTabChanged += HandleTabChanged;
+    }
+
+    private void HandleTabChanged(string _)
+    {
+        // just re-render the bar so the “active” class moves
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        tabs.OnTabChanged -= HandleTabChanged;
+    }
 }
