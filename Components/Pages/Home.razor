@@ -5,25 +5,64 @@
 <PageTitle>Zack LaCanna</PageTitle>
 
 <div class="content">
-
-    <div id="about" class="about" aria-label="about">
-        <AboutMe />
+    <div id="@CurrentSection.Id" class="@($"section-content {CurrentSection.Id}")">
+        @CurrentSection.Fragment
     </div>
 
-    <div id="experience" class="experience" aria-label="experience">
-        <Experience />
+    <div class="navigation-controls">
+        @if (CanGoBack)
+        {
+            <button class="nav-btn" @onclick="GoBack">
+                <div class="icon-circle">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+            </button>
+        }
+        @if (CanGoNext)
+        {
+            <button class="nav-btn" @onclick="GoNext">
+                <div class="icon-circle">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </button>
+        }
     </div>
-
-    <div id="projects" class="projects" aria-label="projects">
-        <Projects />
-    </div>
-    
-    <div id="contact" class="contact" aria-label="contact">
-        <!-- … your Contact content … -->
-    </div>
-    
 </div>
 
 @code {
+
+    [Parameter]
+    public EventCallback<string> OnSectionChanged { get; set; }
+    
+    private int currentIndex = 0;
+    private bool CanGoBack => currentIndex > 0;
+    private bool CanGoNext => currentIndex < sections.Length - 1;
+    private (string Id, RenderFragment Fragment) CurrentSection => sections[currentIndex];
+    
+    private readonly (string Id, RenderFragment Fragment)[] sections = new (string Id, RenderFragment)[]
+    {
+        ("about", @<AboutMe />),
+        ("experience", @<Experience />),
+        ("projects", @<Projects />),
+        ("contact", @<ContactMe />)
+    };
+    
+    private async Task GoNext()
+    {
+        if (CanGoNext)
+        {
+            currentIndex++;
+            await OnSectionChanged.InvokeAsync(CurrentSection.Id);
+        }
+    }
+
+    private async Task GoBack()
+    {
+        if (CanGoBack)
+        {
+            currentIndex--;
+            await OnSectionChanged.InvokeAsync(CurrentSection.Id);
+        }
+    }
     
 }
