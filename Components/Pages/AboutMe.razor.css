@@ -131,6 +131,23 @@
     color: var(--tab-dark);
 }
 
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;                /* default black */
+    font-size: 1.25rem;
+    margin-left: 1rem;          /* spacing between icons */
+    transition: color 0.2s, transform 0.2s;
+}
+.social-icon:first-child {
+    margin-left: 0;             /* no gap before first one */
+}
+.social-icon:hover {
+    color: #555;                /* lighter on hover */
+    transform: translateY(-2px);/* subtle lift */
+}
+
 @media (max-width: 992px) {
     .profile-left {
         align-items: center;  /* center flex-children */
@@ -148,3 +165,4 @@
         max-height: 250px;
     }
 }
+
