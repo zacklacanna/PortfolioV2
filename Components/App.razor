@@ -4,7 +4,7 @@
 <html lang="en">
 
 @{
-    var version = "2.6.5";
+    var version = "2.6.6";
 }
 
 
@@ -12,20 +12,17 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <base href="/"/>
+    <link rel="preload" as="image" href="zack-profile.png"/>
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="app.css?v=@version"/>
     <link rel="stylesheet" href="ZackV2.styles.css?v=@version"/>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <HeadOutlet/>
 </head>
 
 <body>
     <Routes @rendermode=RenderMode.InteractiveServer />
-    <script src="https://kit.fontawesome.com/b235c568eb.js" crossorigin="anonymous"></script>
+    <script defer src="https://kit.fontawesome.com/b235c568eb.js" crossorigin="anonymous"></script>
     <script src="_framework/blazor.web.js"></script>
 </body>
 

@@ -1,5 +1,6 @@
 ﻿@using ZackV2.Components.Layout
 @using ZackV2.Services
+@implements IDisposable
 @inject TabService tabs
 @page "/"
 
@@ -7,7 +8,6 @@
 
 <div class="content">
     <div id="@CurrentSection.Id"
-         @key="@CurrentSection.Id"
          class="@($"section-content {CurrentSection.Id} {animationClass}")">
         @CurrentSection.Fragment
     </div>
@@ -35,14 +35,10 @@
 </div>
 
 @code {
-
-    [Parameter]
-    public EventCallback<string> OnSectionChanged { get; set; }
     private string animationClass = string.Empty;
-    
     private int currentIndex = 0;
-    private string activeTab = string.Empty;
-    
+    private CancellationTokenSource? animationCts;
+
     private bool CanGoBack => currentIndex > 0;
     private bool CanGoNext => currentIndex < sections.Length - 1;
     private (string Id, RenderFragment Fragment) CurrentSection => sections[currentIndex];
@@ -55,57 +51,61 @@
         ("contact", @<ContactMe />)
     };
 
-    private bool inAnimation = false;
-    private async Task AnimateSwitch(int newIndex)
+    private async Task ActivateSection(int newIndex, bool syncTab)
     {
-        if (inAnimation) return;
-        inAnimation = true;
+        if (newIndex < 0 || newIndex >= sections.Length || newIndex == currentIndex)
+        {
+            return;
+        }
 
         bool forward = newIndex > currentIndex;
-        animationClass = forward ? "exit-left" : "exit-right";
-        await InvokeAsync(StateHasChanged);
-        await Task.Delay(300);
-
         currentIndex = newIndex;
-        tabs.SetTab(sections[newIndex].Id);  // sync Topbar
+        if (syncTab)
+        {
+            tabs.SetTab(sections[newIndex].Id);
+        }
 
-        animationClass = forward ? "enter-right" : "enter-left";
-        await InvokeAsync(StateHasChanged);
-        await Task.Delay(50);
-
-        animationClass = "enter-active";
-        await InvokeAsync(StateHasChanged);
-        await Task.Delay(100);
-
-        animationClass = string.Empty;
+        animationClass = forward ? "slide-in-right" : "slide-in-left";
         await InvokeAsync(StateHasChanged);
 
-        inAnimation = false;
+        animationCts?.Cancel();
+        animationCts?.Dispose();
+        animationCts = new CancellationTokenSource();
+
+        try
+        {
+            await Task.Delay(220, animationCts.Token);
+            animationClass = string.Empty;
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (TaskCanceledException)
+        {
+        }
     }
 
-    private Task GoNext() => AnimateSwitch(currentIndex + 1);
-    private Task GoBack() => AnimateSwitch(currentIndex - 1);
+    private Task GoNext() => ActivateSection(currentIndex + 1, syncTab: true);
+    private Task GoBack() => ActivateSection(currentIndex - 1, syncTab: true);
     
     protected override void OnInitialized()
     {
-        // 1) start at the service's current tab
         currentIndex = Array.FindIndex(sections, s => s.Id == tabs.CurrentTab);
         if (currentIndex < 0) currentIndex = 0;
-
-        // 2) listen for Topbar clicks
         tabs.OnTabChanged += OnTabChanged;
     }
-    
-    private async void OnTabChanged(string tabId)
+
+    private void OnTabChanged(string tabId)
     {
         var newIndex = Array.FindIndex(sections, s => s.Id == tabId);
         if (newIndex >= 0 && newIndex != currentIndex)
-            await AnimateSwitch(newIndex);
+        {
+            _ = InvokeAsync(() => ActivateSection(newIndex, syncTab: false));
+        }
     }
 
     public void Dispose()
     {
-        // must remove the same handler reference
+        animationCts?.Cancel();
+        animationCts?.Dispose();
         tabs.OnTabChanged -= OnTabChanged;
     }
 }

@@ -6,7 +6,13 @@
             <div class="row gx-4 gy-4 align-items-stretch">
                 <!-- Left side: Full height avatar -->
                 <div class="profile-left col-12 col-lg-4 d-flex flex-column align-items-center">
-                    <div class="avatar flex-fill w-100 h-100"></div>
+                    <img class="avatar flex-fill w-100 h-100"
+                         src="zack-profile.png"
+                         alt="Zack LaCanna"
+                         width="512"
+                         height="512"
+                         fetchpriority="high"
+                         decoding="async" />
                     <div class="d-flex align-items-center mt-3">
                         <a class="social-icon" href="https://github.com/zacklacanna" target="_blank" aria-label="GitHub">
                             <i class="fab fa-github"></i>
@@ -49,10 +55,10 @@
 
 @code {
 
-    string Name = "Zack LaCanna";
-    string Location = "Scottsdale, Arizona";
+    private const string Name = "Zack LaCanna";
+    private const string Location = "Scottsdale, Arizona";
 
-    List<string> Technologies { get; set; } = new()
+    private List<string> Technologies { get; } = new()
     {
         "C#", "Python", "AI", "Full-Stack", "Cloud Computing", "SaaS"
     };
@@ -76,32 +82,4 @@
         "I thrive on solving complex challenges while ensuring performance, scalability, and reliability."
     };
     
-    private readonly int teaserCount = 20;
-    private string GenerateTeaser()
-    {
-        string fullBio = string.Join(" ", resumeLines);
-
-        // split into words
-        var words = fullBio
-            .Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-        // tease the first 20 words
-        return string.Join(" ",
-            words.Take(teaserCount)) + "…";
-        
-    }
-
-    private string GenerateRemainerDescription()
-    {
-        string fullBio = string.Join(" ", resumeLines);
-
-        // split into words
-        var words = fullBio
-            .Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-        return string.Join(" ",
-            words.Skip(teaserCount));  
-    }
-    
-
 }

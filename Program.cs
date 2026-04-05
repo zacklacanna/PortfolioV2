@@ -11,6 +11,10 @@ builder.Services
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 
 // register singletons
 builder.Services.AddScoped<ExperienceModalService>();
@@ -56,6 +60,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseRouting();
+app.UseResponseCompression();
 
 // Serve the WASM framework files from wwwroot/_framework
 app.MapRazorPages();

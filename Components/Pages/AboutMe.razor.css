@@ -17,12 +17,13 @@
 }
 
 .avatar {
-    background: url('zack-profile.png') center/cover no-repeat;
     border-radius: 1.5rem;
-    /* make it a square by default, but scale to its container */
     width: 100%;
     aspect-ratio: 1 / 1;
     height: auto;
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
 /* HEADER & METADATA */
@@ -167,10 +168,8 @@
 
     /* 2. Turn off flex-fill + 100% height on the avatar */
     .profile-left .avatar {
-        background-position: top center !important;
-        background-size: cover !important;
         max-width: 250px;
         max-height: 250px;
+        object-position: top center;
     }
 }
-

@@ -1,7 +1,6 @@
 @using System.Collections.Generic
 @using ZackV2.Classes
 @using ZackV2.Services
-@inject IJSRuntime JS
 @inject ExperienceModalService ExperienceService
 
 <section id="experience" class="content-container py-5" aria-label="experience">
@@ -11,7 +10,13 @@
       @foreach (var exp in Experiences)
       {
         <div class="netflix-card" @onclick="() => ShowDetail(exp)">
-          <div class="card-img" style="background-image: url('@exp.ImageUrl');"></div>
+          <img class="card-img"
+               src="@exp.ImageUrl"
+               alt="@($"{exp.Company} preview")"
+               width="240"
+               height="320"
+               loading="lazy"
+               decoding="async" />
           <div class="card-overlay">
             <p class="mb-1">@exp.Company</p>
             <h5>@exp.Role</h5>
@@ -26,6 +31,29 @@
 @code {
     private List<ExperienceClass.ExpModel> Experiences = new()
     {
+        new ExperienceClass.ExpModel
+        {
+            Role = "Full-Stack Engineer",
+            Company = "Northrop Grumman",
+            Dates = "Feb 2026 – Present",
+            Location = "Chandler, AZ",
+            ImageUrl = "cards/ng-card.png",
+            Description = "",
+            Technologies = new()
+            {
+              "Go",
+              "Python",
+              "PyTorch",
+              "Klocwork",
+              "Gitlab Pipelines",
+              "Automation",
+              "CI/CD"
+            },
+            Links = new()
+            {
+              new ExperienceClass.Link { Text = "Website", Url = "https://www.northropgrumman.com" } 
+            }
+        },
         new ExperienceClass.ExpModel
         {
             Role = "Full-Stack Engineer",
@@ -144,11 +172,7 @@
         // add other experiences here
     };
 
-    private ExperienceClass.ExpModel SelectedExp;
-    private double ClickX, ClickY;
-    private string ShownModel = string.Empty;
-
-    async Task ShowDetail(ExperienceClass.ExpModel exp)
+    private void ShowDetail(ExperienceClass.ExpModel exp)
     {
       ExperienceService.Show(exp);
     }

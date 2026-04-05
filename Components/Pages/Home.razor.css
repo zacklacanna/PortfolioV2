@@ -18,39 +18,22 @@
 .section-content {
     border-radius: 1rem;
     padding: 2rem;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    transition: transform 0.22s ease, opacity 0.22s ease;
     opacity: 1;
     transform: translateX(0);
+    will-change: transform, opacity;
 }
 
-/* Slide and fade out to the left */
-.exit-left {
-    transform: translateX(-50px);
+/* Slide in from the right */
+.slide-in-right {
+    transform: translateX(28px);
     opacity: 0;
 }
 
-/* Slide and fade out to the right */
-.exit-right {
-    transform: translateX(50px);
+/* Slide in from the left */
+.slide-in-left {
+    transform: translateX(-28px);
     opacity: 0;
-}
-
-/* Enter starting from the right */
-.enter-right {
-    transform: translateX(50px);
-    opacity: 0;
-}
-
-/* Enter starting from the left */
-.enter-left {
-    transform: translateX(-50px);
-    opacity: 0;
-}
-
-/* Animate to neutral position */
-.enter-active {
-    transform: translateX(0);
-    opacity: 1;
 }
 
 .navigation-controls {
