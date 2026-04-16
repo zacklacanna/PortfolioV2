@@ -164,6 +164,10 @@ a, .btn-link {
     height: 100%;
 }
 
+.detail-modal .blurb-content {
+    height: auto;
+}
+
 .blurb-list {
     list-style: disc inside;
     margin: 0 0 2rem;
@@ -207,6 +211,23 @@ a, .btn-link {
 
 .blurb-container {
     padding: 1.50rem;
+}
+
+.detail-modal .blurb-container,
+.detail-modal .blurb-description,
+.detail-modal .blurb-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.detail-modal .tech-badge {
+    max-width: 100%;
+    white-space: normal;
+}
+
+.detail-modal a.btn {
+    white-space: normal;
 }
 
 .content {
@@ -299,6 +320,22 @@ h1:focus {
     .blurb-text {
         font-size: 1rem;
         line-height: 1.55;
+    }
+
+    .detail-modal .blurb-content {
+        border-radius: 1rem;
+    }
+
+    .detail-modal .blurb-scroll > .mt-5 {
+        margin-top: 1rem !important;
+    }
+
+    .detail-modal .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+        margin-bottom: 0.75rem;
     }
 }
 
