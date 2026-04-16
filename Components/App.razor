@@ -1,22 +1,19 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject ZackV2.Services.StaticAssetVersionService Assets
 <!DOCTYPE html>
 <html lang="en">
-
-@{
-    var version = "2.6.7";
-}
 
 
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <base href="/"/>
-    <link rel="preload" as="image" href="zack-profile.png"/>
+    <link rel="preload" as="image" href="@Assets.Versioned("zack-profile.png")"/>
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="app.css?v=@version"/>
-    <link rel="stylesheet" href="ZackV2.styles.css?v=@version"/>
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="@Assets.Versioned("app.css")"/>
+    <link rel="stylesheet" href="@Assets.Versioned("ZackV2.styles.css")"/>
+    <link rel="icon" type="image/x-icon" href="@Assets.Versioned("favicon.ico")" />
     <HeadOutlet/>
 </head>
 

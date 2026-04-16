@@ -2,6 +2,7 @@
 @using ZackV2.Classes
 @using ZackV2.Services
 @inject ExperienceModalService ExperienceService
+@inject StaticAssetVersionService Assets
 
 <section id="experience" class="content-container py-5" aria-label="experience">
   <div class="container">
@@ -11,7 +12,7 @@
       {
         <div class="netflix-card" @onclick="() => ShowDetail(exp)">
           <img class="card-img"
-               src="@exp.ImageUrl"
+               src="@Assets.Versioned(exp.ImageUrl)"
                alt="@($"{exp.Company} preview")"
                width="240"
                height="320"

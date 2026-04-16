@@ -1,4 +1,5 @@
 @using System.Globalization
+@inject ZackV2.Services.StaticAssetVersionService Assets
 
 <section id="about" class="content-container py-5" aria-label="about">
     <div class="about-me">
@@ -7,7 +8,7 @@
                 <!-- Left side: Full height avatar -->
                 <div class="profile-left col-12 col-lg-4 d-flex flex-column align-items-center">
                     <img class="avatar flex-fill w-100 h-100"
-                         src="zack-profile.png"
+                         src="@Assets.Versioned("zack-profile.png")"
                          alt="Zack LaCanna"
                          width="512"
                          height="512"
@@ -23,7 +24,7 @@
                         <a class="social-icon" href="mailto:zacklacanna23@gmail.com" aria-label="Email">
                             <i class="fa-regular fa-envelope"></i>
                         </a>
-                        <a class="social-icon" href="/resume.pdf" target="_blank" aria-label="Resume">
+                        <a class="social-icon" href="@Assets.Versioned("resume.pdf")" target="_blank" aria-label="Resume">
                             <i class="fa-regular fa-file-lines"></i>
                         </a>
                     </div>

@@ -19,6 +19,7 @@ builder.Services.AddResponseCompression(options =>
 // register singletons
 builder.Services.AddScoped<ExperienceModalService>();
 builder.Services.AddScoped<TabService>();
+builder.Services.AddSingleton<StaticAssetVersionService>();
 
 builder.Services.AddSession(options =>
 {

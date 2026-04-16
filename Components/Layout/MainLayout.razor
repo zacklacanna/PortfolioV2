@@ -2,6 +2,7 @@
 @inherits LayoutComponentBase
 @implements IDisposable
 @inject ExperienceModalService ExperienceModal
+@inject StaticAssetVersionService Assets
 
 <div class="body">
   
@@ -62,7 +63,7 @@
                         @foreach (var img in ExperienceModal.Current.ExampleImages)
                         {
                             <div class="blurb-image-container">
-                                <img src="@img" alt="" loading="lazy" decoding="async" />
+                                <img src="@Assets.Versioned(img)" alt="" loading="lazy" decoding="async" />
                             </div>
                         }
                     </div>
