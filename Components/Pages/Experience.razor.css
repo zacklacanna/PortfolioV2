@@ -103,3 +103,22 @@
 .netflix-card:hover .card-hover-text {
     opacity: 1;
 }
+
+@media (max-width: 768px) {
+    .scroll-x-container {
+        padding: 0.75rem 0 1.25rem 0;
+        scroll-snap-type: x proximity;
+    }
+
+    .netflix-card {
+        width: min(72vw, 240px);
+        height: auto;
+        aspect-ratio: 3 / 4;
+        scroll-snap-align: start;
+    }
+
+    .netflix-card .card-hover-text {
+        opacity: 1;
+        background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.55));
+    }
+}

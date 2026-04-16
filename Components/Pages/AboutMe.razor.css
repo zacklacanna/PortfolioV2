@@ -173,3 +173,23 @@
         object-position: top center;
     }
 }
+
+@media (max-width: 768px) {
+    .profile-header {
+        margin-bottom: 1.25rem;
+    }
+
+    .profile-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .description-text {
+        padding-top: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .social-icon {
+        font-size: 1.1rem;
+        margin-left: 0.75rem;
+    }
+}

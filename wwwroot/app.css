@@ -248,6 +248,60 @@ h1:focus {
     -webkit-overflow-scrolling: touch;
 }
 
+@media (max-width: 768px) {
+    .content-container {
+        height: auto;
+        min-height: 0;
+        padding: 1.25rem;
+        border-radius: 1.25rem;
+        justify-content: flex-start;
+        box-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.08),
+            0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .modal-header {
+        padding: 1.25rem;
+        padding-bottom: 0.25rem;
+    }
+
+    .modal-header .close-btn {
+        top: 0.9rem;
+        right: 1rem;
+        font-size: 1.65rem;
+    }
+
+    .detail-modal,
+    .detail-modal.show,
+    .detail-modal.hide {
+        width: 100%;
+        max-width: none;
+        height: 100dvh;
+        max-height: 100dvh;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+        transform: none;
+        animation: none;
+        opacity: 1;
+    }
+
+    .blurb-scroll {
+        padding: 1rem;
+        padding-top: 0;
+    }
+
+    .blurb-container {
+        padding: 1rem;
+    }
+
+    .blurb-description,
+    .blurb-text {
+        font-size: 1rem;
+        line-height: 1.55;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
