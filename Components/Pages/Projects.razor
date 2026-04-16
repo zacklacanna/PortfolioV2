@@ -1,14 +1,84 @@
+@using ZackV2.Classes
+@using ZackV2.Services
+@inject ExperienceModalService ExperienceService
+
 <section id="projects" class="content-container py-5" aria-label="projects">
     <div class="container">
         <h2 class="section-title align-content-start justify-content-start mb-5">My Projects</h2>
-        <div class="d-flex flex-nowrap overflow-auto">
-            <div class="blurb-content project-placeholder modern">
-                <div class="placeholder-icon">
-                    <i class="fa-solid fa-rocket"></i>
+        <div class="d-flex flex-nowrap overflow-auto scroll-x-container">
+            @foreach (var project in ProjectsList)
+            {
+                <div class="netflix-card" @onclick="() => ShowProject(project)">
+                    <img class="card-img"
+                         src="@project.ImageUrl"
+                         alt="@($"{project.Role} preview")"
+                         width="240"
+                         height="320"
+                         loading="lazy"
+                         decoding="async" />
+                    <div class="card-overlay">
+                        <p class="mb-1">@project.Company</p>
+                        <h5>@project.Role</h5>
+                    </div>
+                    <div class="card-hover-text">Click to see details</div>
                 </div>
-                <h3 class="placeholder-title">Next Project</h3>
-                <p class="placeholder-text">Launching soon—stay tuned!</p>
-            </div>
+            }
         </div>
     </div>
-</section> 
+</section>
+
+@code {
+    private List<ExperienceClass.ExpModel> ProjectsList { get; } = new()
+    {
+        new ExperienceClass.ExpModel
+        {
+            Role = "Produce Identifier",
+            Company = "Machine Learning",
+            Dates = "Custom image model with live camera inference",
+            Location = "Personal Project",
+            ImageUrl = "cards/produce-card.png",
+            Description = "Built a produce recognition application around a custom-trained machine learning model capable of identifying roughly 30 different produce types. I assembled and labeled the training images, trained the model for produce classification, and integrated it into an application that runs against a live camera feed so the app can identify what a user is holding in real-world scenarios with different angles, backgrounds, and lighting conditions.",
+            Technologies = new()
+            {
+                "Python",
+                "Machine Learning",
+                "Computer Vision",
+                "Image Classification",
+                "Live Camera Feed",
+                "Model Integration"
+            },
+            Links = new()
+        },
+        new ExperienceClass.ExpModel
+        {
+            Role = "AwayPlan",
+            Company = "Go Terminal App",
+            Dates = "PTO forecasting and trip planning tool",
+            Location = "Personal Project",
+            ImageUrl = "cards/awayplan-card.png",
+            Description = "Built a TUI based PTO planning tool in Go that helps users forecast future PTO balances, manage holidays and trips, and validate whether planned travel fits projected accrual. The app uses an interactive TUI workflow, stores user configuration and trip data in YAML files, and handles PTO calculations over time so users can plan time off without relying on spreadsheets.",
+            Technologies = new()
+            {
+                "Go",
+                "Bubble Tea",
+                "Terminal UI",
+                "YAML",
+                "CLI Design",
+                "Business Logic"
+            },
+            Links = new()
+            {
+                new ExperienceClass.Link
+                {
+                    Text = "GitHub Repo",
+                    Url = "https://github.com/zacklacanna/AwayPlan"
+                }
+            }
+        }
+    };
+
+    private void ShowProject(ExperienceClass.ExpModel project)
+    {
+        ExperienceService.Show(project);
+    }
+}
