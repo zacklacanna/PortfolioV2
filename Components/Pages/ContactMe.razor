@@ -1,56 +1,75 @@
+@inject ZackV2.Services.StaticAssetVersionService StaticAssets
+
 <section id="contact" class="content-container py-5">
     <div class="contact-shell">
         <div class="contact-intro">
             <p class="contact-eyebrow">Connect</p>
-            <h2 class="section-title mb-3">Get In Touch</h2>
+            <h2 class="section-title">Get In Touch</h2>
             <p class="contact-lead">
                 If you want to talk software engineering, automation, machine learning, or an interesting technical idea,
                 feel free to reach out. I enjoy connecting with people who like building practical tools and solving real problems.
             </p>
+
+            <div class="contact-topics" aria-label="Topics">
+                <span>Software</span>
+                <span>Automation</span>
+                <span>Machine Learning</span>
+                <span>Product Ideas</span>
+            </div>
         </div>
 
-        <div class="contact-actions">
-            <a class="contact-panel primary" href="mailto:zacklacanna23@gmail.com">
-                <div class="panel-icon">
+        <div class="contact-directory" aria-label="Contact links">
+            <a class="contact-link primary" href="mailto:zacklacanna23@gmail.com">
+                <span class="link-icon">
                     <i class="fa-solid fa-envelope"></i>
-                </div>
-                <div>
-                    <p class="panel-label">Email</p>
-                    <h3 class="panel-title">zacklacanna23@gmail.com</h3>
-                </div>
+                </span>
+                <span class="link-copy">
+                    <span class="link-label">Email</span>
+                    <span class="link-title">zacklacanna23@gmail.com</span>
+                </span>
+                <span class="link-arrow" aria-hidden="true">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </a>
 
-            <div class="contact-secondary">
-                <a class="contact-panel" href="https://www.linkedin.com/in/zacklacanna" target="_blank" rel="noopener noreferrer">
-                    <div class="panel-icon linkedin">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </div>
-                    <div>
-                        <p class="panel-label">LinkedIn</p>
-                        <h3 class="panel-title">Connect professionally</h3>
-                    </div>
-                </a>
+            <a class="contact-link" href="https://www.linkedin.com/in/zacklacanna" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon linkedin">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </span>
+                <span class="link-copy">
+                    <span class="link-label">LinkedIn</span>
+                    <span class="link-title">Connect professionally</span>
+                </span>
+                <span class="link-arrow" aria-hidden="true">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+            </a>
 
-                <a class="contact-panel" href="https://github.com/zacklacanna" target="_blank" rel="noopener noreferrer">
-                    <div class="panel-icon github">
-                        <i class="fa-brands fa-github"></i>
-                    </div>
-                    <div>
-                        <p class="panel-label">GitHub</p>
-                        <h3 class="panel-title">Browse code and side projects</h3>
-                    </div>
-                </a>
+            <a class="contact-link" href="https://github.com/zacklacanna" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon github">
+                    <i class="fa-brands fa-github"></i>
+                </span>
+                <span class="link-copy">
+                    <span class="link-label">GitHub</span>
+                    <span class="link-title">Browse code and side projects</span>
+                </span>
+                <span class="link-arrow" aria-hidden="true">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+            </a>
 
-                <a class="contact-panel" href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                    <div class="panel-icon resume">
-                        <i class="fa-regular fa-file-lines"></i>
-                    </div>
-                    <div>
-                        <p class="panel-label">Resume</p>
-                        <h3 class="panel-title">View experience and background</h3>
-                    </div>
-                </a>
-            </div>
+            <a class="contact-link" href="@StaticAssets.Versioned("resume.pdf")" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon resume">
+                    <i class="fa-regular fa-file-lines"></i>
+                </span>
+                <span class="link-copy">
+                    <span class="link-label">Resume</span>
+                    <span class="link-title">View experience and background</span>
+                </span>
+                <span class="link-arrow" aria-hidden="true">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+            </a>
         </div>
     </div>
 </section>
