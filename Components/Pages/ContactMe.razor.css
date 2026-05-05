@@ -90,12 +90,12 @@
 
 .contact-link.primary {
     padding: 1.55rem 1.4rem;
-    color: #fff;
-    background: #102c3f;
+    color: inherit;
+    background: #fff;
 }
 
 .contact-link.primary:hover {
-    background: #17384f;
+    background: #f8fafc;
 }
 
 .link-icon {
@@ -112,8 +112,8 @@
 }
 
 .primary .link-icon {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.14);
+    color: #102c3f;
+    background: #eef3f7;
 }
 
 .link-icon.linkedin {
@@ -147,7 +147,7 @@
 }
 
 .primary .link-label {
-    color: rgba(255, 255, 255, 0.72);
+    color: #667085;
 }
 
 .link-title {
@@ -160,7 +160,7 @@
 }
 
 .primary .link-title {
-    color: #fff;
+    color: #111827;
     font-size: 1.15rem;
 }
 
@@ -170,7 +170,7 @@
 }
 
 .primary .link-arrow {
-    color: rgba(255, 255, 255, 0.75);
+    color: #98a2b3;
 }
 
 @media (max-width: 900px) {
